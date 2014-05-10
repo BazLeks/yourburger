@@ -1,5 +1,7 @@
 <resources>
 
     <string name="app_name">yourburger</string>
+    <string name="main_menu_button1">Подбор бургеров</string>
+    <string name="main_menu_button2">Подбор ресторанов</string>
 
 </resources>
