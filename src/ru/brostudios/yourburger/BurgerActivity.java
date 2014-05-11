@@ -14,8 +14,8 @@ public class BurgerActivity extends Application {
 
 	@Override
 	public void loadGameTextures() {
-		Textures.restaurant = new Texture(this, "MainMenu/restaurant.png");
-		Textures.burger = new Texture(this, "MainMenu/burger.png");
-		Textures.back = new Texture(this, "MainMenu/back.png");
+//		Textures.restaurant = new Texture(this, "MainMenu/restaurant.png");
+//		Textures.burger = new Texture(this, "MainMenu/burger.png");
+		Textures.back = new Texture(this, "back.png");
 	}
 }
