@@ -6,36 +6,45 @@ import java.nio.FloatBuffer;
 
 import javax.microedition.khronos.opengles.GL10;
 
+import ru.brostudios.framework.Application;
+
 import android.util.Log;
 
-import ru.brostudios.framework.Application;
 
 public class Sprite {
 
-	protected Application game;
+	protected Application application;
 	
 	protected Texture texture;
 	protected FloatBuffer floatBuffer;
-	private int m, n, i;	// m-ñòðîêà(êîë-âî), n-ñòîëáåö(êîë-âî), i - òåêóùèé êàäð
+	private int m, n, i;	// m-ÑÑ‚Ñ€Ð¾ÐºÐ°, n-ÑÑ‚Ð¾Ð»Ð±ÐµÑ†, i-Ñ‚ÐµÐºÑƒÑ‰Ð¸Ð¹ ÐºÐ°Ð´Ñ€
+	private float texWidth, texHeight;
 // *********************************************************************************
 	
-	public Sprite(Application game, Texture texture, int mFrames, int nFrames) {
+	public Sprite(Application app, Texture texture, int mFrames, int nFrames) {
 		m = mFrames; n = nFrames; i = 0;
 		floatBuffer = ByteBuffer.allocateDirect((2+2)*4*4).order(ByteOrder.nativeOrder()).asFloatBuffer();
+		this.application = app;
+		this.texture = texture;
 		
+		// Ñ€Ð°Ð·Ð¼ÐµÑ€ ÐºÐ°Ð´Ñ€Ð° Ñ‚ÐµÐºÑÑ‚ÑƒÑ€Ñ‹
 		float texWidth = texture.getWidth()/n;
 		float texHeight = texture.getHeight()/m;
-		// íîðìàëèçóåì, ñîõðàíÿÿ ïðîïîðöèè
+		
+		// Ð½Ð¾Ñ€Ð¼Ð°Ð»Ð¸Ð·ÑƒÐµÐ¼, Ð¾Ñ‚Ð½Ð¾ÑÐ¸Ñ‚ÐµÐ»ÑŒÐ½Ð¾ Ð¿Ñ€Ð¾Ð¿Ð¾Ñ€Ñ†Ð¸Ð¹ ÐºÐ°Ð´Ñ€Ð° Ñ‚ÐµÐºÑÑ‚ÑƒÑ€Ñ‹
 		if(texWidth>texHeight) { texHeight /= texWidth;	texWidth /= texWidth;
 		} else { texWidth /= texHeight; texHeight /= texHeight; }
+		this.texWidth = texWidth;
+		this.texHeight = texHeight;
 		
 		floatBuffer.put(new float[] {-texWidth/2f, +texHeight/2f, 0, 0,
 									 -texWidth/2f, -texHeight/2f, 0, 1,
 									 +texWidth/2f, +texHeight/2f, 1, 0,
 									 +texWidth/2f, -texHeight/2f, 1, 1 });
-		this.game = game;
-		this.texture = texture;
+		
 	}
+	public final float getFrameWidth() { return texWidth; }
+	public final float getFrameHeight() { return texHeight; }
 	
 	public void setFrame(int frameNum) {
 		if(frameNum>m*n) Log.d("BroStudios", "Number of frame is too big (i="+i+"), max="+m*n);

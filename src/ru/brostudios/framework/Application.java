@@ -12,7 +12,7 @@ import android.util.Log;
 
 public abstract class Application extends Activity implements FrameworkInterface, GLSurfaceView.Renderer {
 	
-	protected final boolean DEBUG = false; // отображение инфы в лог (тэг BroStudios)
+	protected final boolean DEBUG = false; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅ (пїЅпїЅпїЅ BroStudios)
 	private ScreenInterface screen;	
 	private Graphics graphics;
 	private Input input;
@@ -114,5 +114,4 @@ public abstract class Application extends Activity implements FrameworkInterface
 		loadGameTextures();
 		if(screen==null) screen = getStartScreen();
 	}
-	
 }

@@ -7,17 +7,17 @@ import ru.brostudios.framework.interfaces.InputInterface.TouchEvent;
 
 public abstract class UserInterface {
 	
-	protected Application game;
-	protected int state;
+	protected Application application;
 	protected boolean active;
+	protected double x, y;	// float теряет точность
 	
-	public UserInterface(Application game) {
-		this.game = game;
+	public UserInterface(Application app) {
+		this.application = app;
 		active = true;
+		this.x = 0; this.y = 0;
 	}
-	
+	public void activate() { active = true; }
+	public void deactivate() { active = false; }
 	public abstract void present();
-	
-	public void update(List<TouchEvent> touchEvents) {}
-	
+	public abstract void update(List<TouchEvent> touchEvents);
 }

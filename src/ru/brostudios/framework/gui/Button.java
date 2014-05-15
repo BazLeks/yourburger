@@ -1,188 +1,125 @@
-//	╘ ALEXEY BORISOV
-//мюуси ме лемърэ рср мхвецн!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//якедсчыхи йнд охяюк яюлши мсаяйхи ашдкнйндеп ян бяецн яберю, дюфе хмдсяш охьср ксвье
-//бмхлюмхе дюкэье бяе мюгбюмхъ бяеу бюфмшу лернднб асдср мювхмюрэяъ я анкэьни асйбш,
-//онрнлс врн лме рюй мпюбхряъ
-
 package ru.brostudios.framework.gui;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
 import java.util.List;
-
-import javax.microedition.khronos.opengles.GL10;
-
 import ru.brostudios.framework.Application;
+import ru.brostudios.framework.game.Sprite;
 import ru.brostudios.framework.game.Texture;
 import ru.brostudios.framework.interfaces.InputInterface.TouchEvent;
 
-public class Button {
-	//цнбмнймнойю
-	//с мее рср ве_рн еярэ.. рейярспю рюл, цнбмнасттеп, еые йюйюъ_рн уепмъ
-	private Application game;
-	private Texture texture;
-	private FloatBuffer floatBuffer;
-	private enum STATE { BUTTON_UP, BUTTON_DOWN }
+public class Button extends UserInterface {
+	
+	private static enum STATE { BUTTON_UP, BUTTON_DOWN, BUTTON_RELEASE }
 	private STATE state;
-	private boolean active;
-	private float x, y;
-	private float width, height;
 	private float scale;
+	private Sprite sprite;
+	private float minScale;
+	//private AndroidGame game;
+	//private Texture texture;
+	//private FloatBuffer floatBuffer;
+	//private double x, y;
+
+// ************************************************************
 	
-//гдеяэ ашкю кхмхъ, ашкю мюуси
-	
-	public Button(Application game, Texture texture, float scale) {
-		//цнбмнйнмярпсйрнп ймнойх
-		this.game = game;
-		active = false;
+	public Button(Application app, Texture texture, float scale) {
+		super(app);
 		state = STATE.BUTTON_UP;
-		this.texture = texture;
-		this.width = texture.width;
-		this.height = texture.height;
-		this.x = 0;
-		this.y = 0;
-		float screenW = game.getGraphics().getWidth();
-		float screenH = game.getGraphics().getHeight();
-		float scaleNew = 1.0f;
-		if(screenW <= screenH) scaleNew = scale*screenW/texture.width;
-		else scaleNew = scale*screenH/texture.height;
-		this.scale = scaleNew;
-		//дюкэье лш янгдюел цнбмнткнюрасттеп
-		//лнфмн дюфе х еые пюгнй янгдюрэ.
-		//ю онвелс аш х мер? с мюя фе днусъ бпелемх, врна бяе оепеохяшбюрэ ямнбю х ямнбю
-		floatBuffer = ByteBuffer.allocateDirect((2+2)*4*4).order(ByteOrder.nativeOrder()).asFloatBuffer();
-		floatBuffer.put(new float[] {
-			-texture.width/2.0f, +texture.height/2.0f, 0.0f, 0.0f,
-			-texture.width/2.0f, -texture.height/2.0f, 0.0f, 1.0f,
-			+texture.width/2.0f, +texture.height/2.0f, 1.0f, 0.0f,
-			+texture.width/2.0f, -texture.height/2.0f, 1.0f, 1.0f
-		});
-		//ме мюуеп кемэ еые ндхм янгдюбюрэ, йюй мхасдэ б якедсчыхи пюг
+		sprite = new Sprite(app, texture, 1, 1);
+		this.scale = scale;
+		this.minScale = scale/10f;
+		//this.texture = texture;
+		//int screenW = game.getGraphics().getWidth();
+		//int screenH = game.getGraphics().getHeight();
+		//float scaleNew = 1.0f;
+//		if(screenW <= screenH) scaleNew = scale*screenW/texture.width;
+//		else scaleNew = scale*screenH/texture.height;
+//		this.scale = scaleNew;
 	}
 	
-	public void Update(List<TouchEvent> touchEvents) {
-		//цнбмнюодеир
-		//врн дюкэье гю бшяеп блеярн йндю ме онмърмн дюфе рюйнлс мсас йюй лме
-		boolean isTouchDown = false;
+	public void update(List<TouchEvent> touchEvents) {
+		
+		boolean isTouchDown = false;	// 
+		
 		for(int i=0; i<touchEvents.size(); i++) {
 			TouchEvent touchEvent = touchEvents.get(i);
-			if(touchEvent.type != TouchEvent.TOUCH_DOWN) continue;
-			float tx = touchEvent.x - game.getGraphics().getWidth()/2.0f;
-			float ty = game.getGraphics().getHeight()/2.0f - touchEvent.y;
-			float w = width*scale;
-			float h = height*scale;
-			if( tx >= x-w/2 && tx <= x+w/2 && ty >= y-h/2 && ty <= y+h/2 ) {
-				//япюмюъ опнбепйю мю оноюдюмхе б жемрп йпсцю
-				//дю бяе ймнойх рхон йпсцкше х мюяпюрэ мю рн, врн нмх лнцср ашрэ йбюдпюрмше
-				//ъ ф опедсопефдюк б мювюке, врн дюфе нпюмцсрюмц охьер йнд ксвье, вел ъ
-				//янаярбеммн онщрнлс лнфмн ее бшохкхбюрэ мюуеп
-				isTouchDown = true;
-				//рпс
+			
+			float tx = touchEvent.x - application.getGraphics().getWidth()/2.0f;
+			float ty = application.getGraphics().getHeight()/2.0f - touchEvent.y;
+			float width = sprite.getFrameWidth()*scale;
+			float height = sprite.getFrameHeight()*scale;
+			
+			if( tx >= x-width/2f && tx <= x+width/2f && ty >= y-height/2 && ty <= y+height/2f) {
+				if(touchEvent.type == TouchEvent.TOUCH_DOWN) {
+					if(state == STATE.BUTTON_UP) {
+						state = STATE.BUTTON_DOWN;
+						scale -= minScale;
+						return;
+					}
+				}
+				if(touchEvent.type == TouchEvent.TOUCH_UP) {
+					if(state == STATE.BUTTON_DOWN) {
+						state = STATE.BUTTON_UP;
+						scale += minScale;
+					}
+				}
+			} else {
+				if(state == STATE.BUTTON_DOWN) {
+					state = STATE.BUTTON_UP;
+					scale += minScale;
+				}
 			}
 		}
-		if(isTouchDown) {
-			//щрн нвемэ бюфмюъ упемэ дкъ дюкэмеиьеи пюанрш цнбмнймнойх
-			state = STATE.BUTTON_DOWN;
-			active = !active;
-		}
-		else {
-			//йюй х щрн рнфе
-			state = STATE.BUTTON_UP;
-		}
 	}
 	
-	public void Draw() {
-		//цнбмннрпхянбйю
-		//дюкэье асдер ярпюьмн рюй, врн ъ сфе ме унвс охяюрэ щрнр бшяеп
-		//ю лнфер мю йюмбюяе гюуепювхрэ нрпхянбйс, мс ю ускх
-		GL10 gl = game.getGraphics().getGL();
-		gl.glEnable(GL10.GL_TEXTURE_2D);
-		gl.glEnable(GL10.GL_BLEND);
-		gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
-		gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
-		floatBuffer.position(0);
-		gl.glVertexPointer(2, GL10.GL_FLOAT, 4*4, floatBuffer);
-		gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
-		floatBuffer.position(2);
-		gl.glTexCoordPointer(2, GL10.GL_FLOAT, 4*4, floatBuffer);
-		gl.glMatrixMode(GL10.GL_MODELVIEW);
-		gl.glPushMatrix();
-		gl.glLoadIdentity();
-		gl.glTranslatef(x, y, 0);
-		gl.glScalef(scale, scale, 1.0f);
-		gl.glBindTexture(GL10.GL_TEXTURE_2D, texture.glID);
-		gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, 4);
-		gl.glPopMatrix();
-		gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
-		gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
-		gl.glDisable(GL10.GL_BLEND);
-		gl.glDisable(GL10.GL_TEXTURE_2D);
-		//тсу, бпнде мюпхянбюк цнбмнймнойс
+	@Override
+	public void present() {
+		
+		sprite.present(application.getGraphics().getGL(), (float)x, (float)y, scale);
+		
 	}
 	
-	public void MoveInScreenCoords(float x, float y) {
-		//дбхцюел цнбмнймнойс
+	public void MoveInScreenCoords(double x, double y) {
 		this.x = x;
 		this.y = y;
 	}
 	
-	public void MoveInScreenPercent(float x, float y) {
-		//дбхцюел цнбмнймнойс
-		float screenW = game.getGraphics().getWidth();
-		float screenH = game.getGraphics().getHeight();
-		this.x = x*(screenW/2-texture.width*scale/2);
-		this.y = y*(screenH/2-texture.height*scale/2);
+	public void MoveInScreenPercent(double x, double y) {
+		// x=[-1, 1], y=[-1, 1]
+		int screenW = application.getGraphics().getWidth();
+		int screenH = application.getGraphics().getHeight();
+		this.x = x*(screenW/2-sprite.getFrameWidth()*scale/2);
+		this.y = y*(screenH/2-sprite.getFrameHeight()*scale/2);
 	}
 	
-	public void SetScale(float scale) {
-		//хглемъел цнбмнпюглеп цнбмнймнойх
-		this.scale = scale;
-	}
+	public void setScale(float scale) { this.scale = scale; }
 	
-	public void SetState(STATE state) {
-		//лемел цнбмнярнярнъмхе цнбмнймнойх
-		this.state = state;
-	}
+	public void setState(STATE state) { this.state = state; }
 	
-	public void SetActive(boolean active) {
-		//лемъел цнбмнюйрхбмнярэ цнбмнймнойх
-		this.active = active;
-	}
+	public void setActive(boolean active) { this.active = active; }
 	
-	public void ChangeTexture(Texture texture) {
-		//лемъел цнбмнрейярспс цнбмнймнойх
-		this.texture = texture;
-	}
+//	public void setTexture(Texture texture) { this.texture = texture; }
 	
 	public boolean isTouchDown() {
 		if(state == STATE.BUTTON_DOWN) return true;
 		else return false;
 	}
-	
+	public boolean isTouchReleased() {
+		if(state == STATE.BUTTON_RELEASE) return true;
+		else return false;
+	}
 	public boolean isActive() {
 		return active;
 	}
 	
-	public float getX() {
-		return x;
-	}
+	public double getX() { return x; }
 	
-	public float getY() {
-		return y;
-	}
+	public double getY() { return y; }
 	
-	public STATE getState() {
-		return state;
-	}
+	public STATE getState() { return state; }
 	
-	public boolean getActive() {
-		return active;
-	}
+	public boolean getActive() { return active; }
 	
-	public float getScale() {
-		return scale;
-	}
+	public float getScale() { return scale; }
 	
-	//йнмеж цнбмнймнойх
+//	public Texture getTexture() { return texture; }
+
 }
