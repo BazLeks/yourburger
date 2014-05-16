@@ -1,7 +1,6 @@
 package ru.brostudios.yourburger.screens;
 
 import java.util.List;
-
 import ru.brostudios.framework.Application;
 import ru.brostudios.framework.Input;
 import ru.brostudios.framework.game.Sprite;
