@@ -46,7 +46,8 @@ public class MainMenu extends ScreenInterface {
 		burger.addButton(new Button(application, Textures.ingredients, application.getGraphics().getWidth()/4f));
 		// -- кнопка из списка
 		burger.addButton(new Button(application, Textures.list, application.getGraphics().getWidth()/4f));
-		
+
+		// создаем кнопки при активации ресторана
 		restaurant = new ButtonBoss(application, Textures.restaurant, application.getGraphics().getWidth()/2f, 0.01f, application.getGraphics().getWidth()/3f, 0, 360);
 		// -- кнопка kfc
 		restaurant.addButton(new Button(application, Textures.kfc, application.getGraphics().getWidth()/4f));
@@ -96,46 +97,52 @@ public class MainMenu extends ScreenInterface {
 		
 		// нажатия на кнопки "выбор бургера"
 		// обработка нажатий раскрывающихся кнопок
-		burger.update(events);
+		if(fixed_x == x) burger.update(events);
 		if(burger.getButton(Button_Ingredient).isTouchReleased()) {
-			Log.d("update", "Нажали на Button_Ingredient");
-//			Toast toast = Toast.makeText(application, "Нажали кнопку по ингредиентам", Toast.LENGTH_SHORT);
-//			toast.show();
+			if(fixed_x == x) {
+				Log.d("update", "Нажали на Button_Ingredient");
+				application.setScreen(new QuestionsScreen(application));
+			}
 		}
 		if(burger.getButton(Button_List).isTouchReleased()) {
-			Log.d("update", "Нажали на Button_List");
-//			Toast toast = Toast.makeText(application, "Нажали кнопку из списка", Toast.LENGTH_SHORT);
-//			toast.show();
+			if(fixed_x == x) {
+				Log.d("update", "Нажали на Button_List");				
+			}
 		}
 		// нажатия на кнопки "выбор ресторана"
 		// обработка нажатий раскрывающихся кнопок
-		restaurant.update(events);
+		if(fixed_x == x) restaurant.update(events);
 		// -- кнопка kfc
 		if(restaurant.getButton(0).isTouchReleased()) {
-			application.setScreen(new RestMap(application));
-			Log.d("update", "Нажали на кнопку kfc");
+			if(fixed_x == x) {
+				application.setScreen(new RestMap(application));
+				Log.d("update", "Нажали на кнопку kfc");
+			}
 		}
 		// -- кнопка mcdonalds
 		if(restaurant.getButton(1).isTouchReleased()) {
-//			application.setScreen(new RestMap(application));
-			Log.d("update", "Нажали на кнопку mcdonalds");
+			if(fixed_x == x) {
+				Log.d("update", "Нажали на кнопку mcdonalds");				
+			}
 		}
 		// -- кнопка burgerking
 		if(restaurant.getButton(2).isTouchReleased()) {
-//			application.setScreen(new RestMap(application));
-			Log.d("update", "Нажали на кнопку burgerking");
+			if(fixed_x == x) {
+				Log.d("update", "Нажали на кнопку burgerking");				
+			}
 		}
 		// -- кнопка carlsjr
 		if(restaurant.getButton(3).isTouchReleased()) {
-//			application.setScreen(new RestMap(application));
-			Log.d("update", "Нажали на кнопку carlsjr");
+			if(fixed_x == x) {
+				Log.d("update", "Нажали на кнопку carlsjr");				
+			}
 		}
 		// -- кнопка subway
 		if(restaurant.getButton(4).isTouchReleased()) {
-//			application.setScreen(new RestMap(application));
-			Log.d("update", "Нажали на кнопку subway");
-		}
-		
+			if(fixed_x == x) {
+				Log.d("update", "Нажали на кнопку subway");				
+			}
+		}		
 	}
 
 	@Override

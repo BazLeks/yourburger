@@ -1,122 +1,73 @@
-//package ru.brostudios.yourburger.screens;
-//
-//import ru.brostudios.framework.Application;
-//import ru.brostudios.framework.Input;
-//import ru.brostudios.framework.game.Sprite;
-//import ru.brostudios.framework.interfaces.ScreenInterface;
-//import ru.brostudios.yourburger.Textures;
-//
-//public class QuestionsScreen extends ScreenInterface {
-//
-//	private Sprite background;
-//	
-//	
-//	public QuestionsScreen(Application application) {
-//		super(application);
-//		background = new Sprite(application, Textures.questions, 1, 1);
-//	}
-//
-//	@Override
-//	public void present() {
-//		background.present(application.getGraphics().getGL(), 0, 0, application.getGraphics().getHeight());
-//	}
-//
-//	@Override
-//	public void update() {
-//		Input input = application.getInput();
-//	}
-//
-//	@Override
-//	public void resume() {
-//		
-//	}
-//
-//	@Override
-//	public void pause() {
-//		
-//	}
-//
-//	@Override
-//	public void destroy() {
-//		
-//	}
-//
-//}
-
-
-
 package ru.brostudios.yourburger.screens;
-
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
-
-import javax.microedition.khronos.opengles.GL10;
+/**
+ * РђРІС‚РѕСЂ: Р®СЂР° Р›РµРѕРЅС‚СЊРµРІ
+ * Р”Р°С‚Р°: 17.05.2014
+ */
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.Activity;
-import android.content.Intent;
-import android.opengl.GLSurfaceView;
 import android.os.Build;
-import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import ru.brostudios.framework.Application;
 import ru.brostudios.framework.File;
-import ru.brostudios.yourburger.BurgerActivity;
+import ru.brostudios.framework.interfaces.ScreenInterface;
 import ru.brostudios.yourburger.R;
-import ru.brostudios.yourburger.R.string;
-import ru.brostudios.yourburger.Screen;
 
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 @SuppressLint("NewApi")
-public class QuestionsScreen extends Activity {
+public class QuestionsScreen extends ScreenInterface {
 	
-	RadioGroup radiogroup;
-	TextView tvInfo;
-	TextView choise0;
-	TextView choise1;
-	TextView choise2;
-	TextView choise3;
-	TextView buttonText;
-	OnClickListener radioListener;
-	Button btn;
-	int choise;
+	private RadioGroup radiogroup;
+	private TextView tvInfo, buttonText;
+	private TextView choise0, choise1, choise2, choise3;
+	//private OnClickListener radioListener;
+	private Button btn;
+	private int choise;
 	
-	int number; // номер вопроса
-	String result;	// номер ответа
+	private int number; 	// РЅРѕРјРµСЂ РІРѕРїСЂРѕСЃР°
+	private String result;	// РЅРѕРјРµСЂ РѕС‚РІРµС‚Р° 
+// *************************************************************
 	
+	public QuestionsScreen(Application application) {
+		super(application);
+		//create();
+	}
 	
 	@Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.questions_screen);
-        
-        number=1; // номер вопроса в опроснике
-        result=""; // строка ответа в опроснике
-        
-        btn = (Button)findViewById(R.id.button1);
-        radiogroup = (RadioGroup) findViewById(R.id.radioGroup2);
-		//radiogroup.clearCheck();
+	public void present() { }
+
+	@Override
+	public void update() { }
+
+	@Override
+	public void create() { 
+		number = 1;	// РЅРѕРјРµСЂ РІРѕРїСЂРѕСЃР° РІ РѕРїСЂРѕСЃРЅРёРєРµ
+		result = ""; // СЃС‚СЂРѕРєР° РѕС‚РІРµС‚Р° РІ РѕРїСЂРѕСЃРЅРёРєРµ
 		
-		tvInfo = (TextView)findViewById(R.id.textView1);	
-		choise0 = (TextView)findViewById(R.id.radio0);
-		choise1 = (TextView)findViewById(R.id.radio1);	
-		choise2 = (TextView)findViewById(R.id.radio2);	
-		choise3 = (TextView)findViewById(R.id.radio3);
-		buttonText =(TextView)findViewById(R.id.button1);
+		application.setContentView(R.layout.questions_screen);
 		
+		btn = (Button)application.findViewById(R.id.button1);
+		radiogroup = (RadioGroup)application.findViewById(R.id.radioGroup2);
+		// radiogroup.clearCheck();
+		
+		tvInfo = (TextView)application.findViewById(R.id.textView1);	
+		choise0 = (TextView)application.findViewById(R.id.radio0);
+		choise1 = (TextView)application.findViewById(R.id.radio1);	
+		choise2 = (TextView)application.findViewById(R.id.radio2);	
+		choise3 = (TextView)application.findViewById(R.id.radio3);
+		buttonText = (TextView)application.findViewById(R.id.button1);
 		this.quest(number);
 		
-			radiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+		radiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 			
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
-				// TODO Auto-generated method stub
 				switch (checkedId) {
 				case R.id.radio0:
 					choise = 0;
@@ -133,20 +84,31 @@ public class QuestionsScreen extends Activity {
 				}
 			}
 		});
-			
+				
 
-			btn.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					if(number<=5 && number>=1)
-				    	result += String.valueOf(choise)+ "!";
-						number++;
-						quest(number);
-				}
-			});
-			
+		btn.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Log.d("", "click()");
+				if(number<=5 && number>=1)
+			    	result += String.valueOf(choise)+ "!";
+					number++;
+					quest(number);
+			}
+		});
+		int a = 5;
 	}
+
+	@Override
+	public void resume() {
+		
+	}
+
+	@Override
+	public void pause() { }
+
+	@Override
+	public void destroy() { }
 	
 	public void quest (int number){
 		//radiogroup.clearCheck();
@@ -159,7 +121,7 @@ public class QuestionsScreen extends Activity {
 				choise3.setText(R.string.questionChoise1_3);
 				break;
 		    case 2:
-		    	// спрятать 2 радиобатона
+		    	// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ 2 пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 				choise2.setVisibility(android.view.View.INVISIBLE);
 				choise3.setVisibility(android.view.View.INVISIBLE);
 				
@@ -183,8 +145,8 @@ public class QuestionsScreen extends Activity {
 				choise1.setText(R.string.questionChoise5_1);
 				break;
 		    default:
-		    	tvInfo.setText("Спасибо за ответы! Мы учли ваши пожелания!");
-		    	buttonText.setText("Посмотреть");
+		    	tvInfo.setText("РЎРїР°СЃРёР±Рѕ Р·Р° РѕС‚РІРµС‚С‹! РњС‹ СѓС‡Р»Рё РІР°С€Рё РїРѕР¶РµР»Р°РЅРёСЏ!");
+		    	buttonText.setText("РџРѕСЃРјРѕС‚СЂРµС‚СЊ");
 		    //	tvInfo.setVisibility(android.view.View.INVISIBLE);
 				choise0.setVisibility(android.view.View.INVISIBLE);
 				choise1.setVisibility(android.view.View.INVISIBLE);
@@ -198,58 +160,57 @@ public class QuestionsScreen extends Activity {
 	public void process(){
 		File file = new File();
 		String burgers="";
-		boolean openFile = file.open("burger");
+		//boolean openFile = file.open("burger");
 		//if(openFile){
 			//burgers = file.read();
-			burgers =  "Биг маг!0!0!1!0!0!]Биг тейсти!0!1!0!0!0!]";
+			burgers =  "Р‘РёРі РјР°Рє!0!0!1!0!0!]Р‘РёРі С‚РµР№СЃС‚Рё!0!1!0!0!0!]";
 			
-			int countBurger = 2; // здесь указываем сколько бургеров есть в базе.
-			int countIngridient = 6; // здесь указываем сколько ингридиентов в строке + имя.
-			int countQuestions = 5;   // Здесь указываем количество вопросов в опроснике
+			int countBurger = 2; 		// Р·РґРµСЃСЊ СѓРєР°Р·С‹РІР°РµРј СЃРєРѕР»СЊРєРѕ Р±СѓСЂРіРµСЂРѕРІ РµСЃС‚СЊ РІ Р±Р°Р·Рµ.
+			int countIngridient = 6;	// Р·РґРµСЃСЊ СѓРєР°Р·С‹РІР°РµРј СЃРєРѕР»СЊРєРѕ РёРЅРіСЂРёРґРёРµРЅС‚РѕРІ РІ СЃС‚СЂРѕРєРµ + РёРјСЏ.
+			int countQuestions = 5;		// Р·РґРµСЃСЊ СѓРєР°Р·С‹РІР°РµРј РєРѕР»РёС‡РµСЃС‚РІРѕ РІРѕРїСЂРѕСЃРѕРІ РІ РѕРїСЂРѕСЃРЅРёРєРµ.
 			int numberOfMatches = 0;
 			
-			
-			String[] bur=new String[countBurger]; 
-			String[] ingr= new String[countIngridient]; // здесь указываем сколько ингридиентов в строке + имя.
+			String[] bur = new String[countBurger]; 
+			String[] ingr = new String[countIngridient]; // Р·РґРµСЃСЊ СѓРєР°Р·С‹РІР°РµРј СЃРєРѕР»СЊРєРѕ РёРЅРіСЂРёРґРёРµРЅС‚РѕРІ РІ СЃС‚СЂРѕРєРµ + РёРјСЏ.
 			String[] opros = new String[countQuestions];
 			
-			opros=result.split("!"); // парсинг строки ответов (то что наотвечали)
-			bur=burgers.split("]"); //  парсинг всех бургеров (в bur будут все бургеры вида: Биг маг!0!1!0!1!1!)
+			opros=result.split("!"); // РїР°СЂСЃРёРЅРі СЃС‚СЂРѕРєРё РѕС‚РІРµС‚РѕРІ (С‚Рѕ С‡С‚Рѕ РЅР°РѕС‚РІРµС‡Р°Р»Рё)
+			bur=burgers.split("]"); // РїР°СЂСЃРёРЅРі РІСЃРµС… Р±СѓСЂРіРµСЂРѕРІ (РІ bur Р±СѓРґСѓС‚ РІСЃРµ Р±СѓСЂРіРµСЂС‹ РІРёРґР°: Р…РёРі РјР°Рі!0!1!0!1!1!)
 			
-			tvInfo.setText(""); // ПОТОМ УБРАТЬ!!!!
+			tvInfo.setText(""); // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ!!!!
 			for (int i=0;i<countBurger; i++, numberOfMatches=0){
-				ingr=bur[i].split("!"); // парсинг каждой исходной строки с бургером
+				ingr=bur[i].split("!"); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 							
 							
 				for (int j=0;j<countQuestions;j++){
 					if (ingr[j+1].equals(opros[j])){
-						numberOfMatches++; // счётчик совпадений ответов и исходного бургера
+						numberOfMatches++; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 					}
 				}
 		
 				float sovpadenie =  ((float)numberOfMatches/(float)countQuestions)*100f;
 				int sovp = (int) sovpadenie;
 				if (sovpadenie >= 50){
-					// ТУТ НАДО БУДЕТ СОХРАНИТЬ НАЗВАНИЕ БУРГЕРА ЧТОБЫ ПОТОМ ПЕРЕДАТЬ В ДРУГУЮ ФОРМУ И ВЫВЕСТИ СПИСОК ПОДХОДЯЩИХ БУРГЕРОВ!!!
+					// пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ!!!
 					String str = String.valueOf(sovp);
-					//tvInfo.setText(tvInfo.getText() + "Вам подходит: "+ingr[0]+". Процент совпадений: " + str +"%.");
+					//tvInfo.setText(tvInfo.getText() + "пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: "+ingr[0]+". пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: " + str +"%.");
 					tvInfo.setText(tvInfo.getText() + ingr[0]+"." + str +"%");
-					// если подходит, сохраняем имя и переходим к следующему
+					// пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 				}
 				else {
 					//String str = String.valueOf(sovp);
-					//tvInfo.setText(tvInfo.getText() + "Вам не подходит: "+ingr[0]+". Процент совпадений: " + str +"%.");
+					//tvInfo.setText(tvInfo.getText() + "пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: "+ingr[0]+". пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: " + str +"%.");
 				}
 		
 			}
-			
-			
-			
+		
 	//	}
 		//else
 		//	burgers="222";
 		//tvInfo.setText(burgers);
 	}
+
+
 	
 }
 
