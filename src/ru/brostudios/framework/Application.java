@@ -10,11 +10,9 @@ import com.google.android.gms.maps.MapView;
 import ru.brostudios.framework.interfaces.FrameworkInterface;
 import ru.brostudios.framework.interfaces.ScreenInterface;
 import android.app.Activity;
-import android.media.ExifInterface;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.widget.Toast;
 
 public abstract class Application extends Activity implements FrameworkInterface, GLSurfaceView.Renderer {
@@ -36,11 +34,12 @@ public abstract class Application extends Activity implements FrameworkInterface
 		try {
 			currentScreen.pause();
 			currentScreen = screens.pop();
-			if(currentScreen==null) this.onDestroy();
+			if(currentScreen==null) super.onBackPressed();
 			currentScreen.resume();
 		} catch(Exception e) {
 			Toast toast = Toast.makeText(this, e.getCause()+"", Toast.LENGTH_SHORT);
 			toast.show();
+			super.onBackPressed();
 		}
 	}
 	
@@ -154,6 +153,5 @@ public abstract class Application extends Activity implements FrameworkInterface
 		graphics.setGL(gl);
 		loadGameTextures();
 		currentScreen.create();
-		//currentScreen.resume();
 	}
 }
