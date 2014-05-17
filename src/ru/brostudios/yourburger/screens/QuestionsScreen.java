@@ -96,15 +96,8 @@ public class QuestionsScreen extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.questions_screen);
         
-     //   GLSurfaceView glSurfaceView = (GLSurfaceView) findViewById(R.id.glsurfaceview);
-
-
-    //    glSurfaceView.setRenderer();  //no longer have to pass the object
-        
-        
-        
-        number=1;
-        result="";
+        number=1; // номер вопроса в опроснике
+        result=""; // строка ответа в опроснике
         
         btn = (Button)findViewById(R.id.button1);
         radiogroup = (RadioGroup) findViewById(R.id.radioGroup2);
@@ -119,7 +112,6 @@ public class QuestionsScreen extends Activity {
 		
 		this.quest(number);
 		
-	//	btn.setLayoutParams(params);
 			radiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 			
 			@Override
@@ -231,7 +223,6 @@ public class QuestionsScreen extends Activity {
 							
 				for (int j=0;j<countQuestions;j++){
 					if (ingr[j+1].equals(opros[j])){
-						//tvInfo.setText(tvInfo.getText()+ "11 ");
 						numberOfMatches++; // счётчик совпадений ответов и исходного бургера
 					}
 				}
@@ -246,7 +237,7 @@ public class QuestionsScreen extends Activity {
 					// если подходит, сохраняем имя и переходим к следующему
 				}
 				else {
-					String str = String.valueOf(sovp);
+					//String str = String.valueOf(sovp);
 					//tvInfo.setText(tvInfo.getText() + "Вам не подходит: "+ingr[0]+". Процент совпадений: " + str +"%.");
 				}
 		
