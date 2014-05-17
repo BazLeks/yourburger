@@ -64,7 +64,6 @@ public abstract class Application extends Activity implements FrameworkInterface
 		//getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLcurrentScreen, WindowManager.LayoutParams.FLAG_FULLcurrentScreen);
 		//getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
 		
-<<<<<<< HEAD
 		mapView = new MapView(this);
 		mapView.onCreate(savedInstanceState);
 		glView = new GLSurfaceView(this);
@@ -72,16 +71,6 @@ public abstract class Application extends Activity implements FrameworkInterface
 		glView.setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
 		currentScreen = getStartScreen();
 		//setContentView(glView);
-=======
-		GLSurfaceView view = new GLSurfaceView(this);
-		view.setRenderer(this);
-		view.setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
-//		setContentView(view);
-		QuestionsScreen qScreen = new QuestionsScreen();
-		Intent intent = new Intent();
-		intent.setClass(this, qScreen.getClass());
-	    startActivity(intent);
->>>>>>> origin/Yura
 		
 		graphics = new Graphics(glView);
 		input = new Input(this);
@@ -127,6 +116,7 @@ public abstract class Application extends Activity implements FrameworkInterface
 					screens.push(Application.this.currentScreen);
 					Application.this.currentScreen.pause();
 					Application.this.currentScreen.destroy();
+					currentScreen.create();
 					currentScreen.resume();
 					currentScreen.update();
 					Application.this.currentScreen = currentScreen;
