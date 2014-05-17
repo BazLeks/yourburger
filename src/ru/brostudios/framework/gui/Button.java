@@ -2,7 +2,6 @@ package ru.brostudios.framework.gui;
 
 import java.util.List;
 
-import android.R;
 import ru.brostudios.framework.Application;
 import ru.brostudios.framework.game.Sprite;
 import ru.brostudios.framework.game.Texture;
@@ -23,11 +22,7 @@ public class Button extends UserInterface {
 		state = STATE.BUTTON_UP;
 		sprite = new Sprite(app, texture, 1, 1);
 		this.scale = scale;
-<<<<<<< HEAD
-		this.minScale = scale/10f;
-=======
 		this.minScale = scale/10f;	
-		R.id.
 		//this.texture = texture;
 		//int screenW = game.getGraphics().getWidth();
 		//int screenH = game.getGraphics().getHeight();
@@ -35,7 +30,6 @@ public class Button extends UserInterface {
 //		if(screenW <= screenH) scaleNew = scale*screenW/texture.width;
 //		else scaleNew = scale*screenH/texture.height;
 //		this.scale = scaleNew;
->>>>>>> origin/Tills
 	}
 	
 	public void update(List<TouchEvent> touchEvents) {

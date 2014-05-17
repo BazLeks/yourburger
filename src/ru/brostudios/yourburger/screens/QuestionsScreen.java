@@ -47,6 +47,10 @@ public class QuestionsScreen extends ScreenInterface {
 
 	@Override
 	public void create() { 
+	}
+
+	@Override
+	public void resume() {
 		number = 1;	// номер вопроса в опроснике
 		result = ""; // строка ответа в опроснике
 		
@@ -92,16 +96,11 @@ public class QuestionsScreen extends ScreenInterface {
 				Log.d("", "click()");
 				if(number<=5 && number>=1)
 			    	result += String.valueOf(choise)+ "!";
-					number++;
-					quest(number);
+				number++;
+				quest(number);
+				if(number == 7) application.setScreen(new BurgerInfo(application));
 			}
 		});
-		int a = 5;
-	}
-
-	@Override
-	public void resume() {
-		
 	}
 
 	@Override
@@ -121,7 +120,7 @@ public class QuestionsScreen extends ScreenInterface {
 				choise3.setText(R.string.questionChoise1_3);
 				break;
 		    case 2:
-		    	// �������� 2 �����������
+		    	// спрятать 2 радиобаттона
 				choise2.setVisibility(android.view.View.INVISIBLE);
 				choise3.setVisibility(android.view.View.INVISIBLE);
 				
@@ -152,7 +151,6 @@ public class QuestionsScreen extends ScreenInterface {
 				choise1.setVisibility(android.view.View.INVISIBLE);
 				choise2.setVisibility(android.view.View.INVISIBLE);
 				choise3.setVisibility(android.view.View.INVISIBLE);
-				
 				this.process();
 		 }
 	}
@@ -177,33 +175,31 @@ public class QuestionsScreen extends ScreenInterface {
 			opros=result.split("!"); // парсинг строки ответов (то что наотвечали)
 			bur=burgers.split("]"); // парсинг всех бургеров (в bur будут все бургеры вида: Ѕиг маг!0!1!0!1!1!)
 			
-			tvInfo.setText(""); // ����� ������!!!!
+			tvInfo.setText(""); // ПОТОМ УБРАТЬ!!!
 			for (int i=0;i<countBurger; i++, numberOfMatches=0){
-				ingr=bur[i].split("!"); // ������� ������ �������� ������ � ��������
+				ingr=bur[i].split("!"); // парсинг каждой исходной строки с бургером
 							
 							
 				for (int j=0;j<countQuestions;j++){
 					if (ingr[j+1].equals(opros[j])){
-						numberOfMatches++; // ������� ���������� ������� � ��������� �������
+						numberOfMatches++; // счетчик совпадений ответов и исходного бургера
 					}
 				}
 		
 				float sovpadenie =  ((float)numberOfMatches/(float)countQuestions)*100f;
 				int sovp = (int) sovpadenie;
 				if (sovpadenie >= 50){
-					// ��� ���� ����� ��������� �������� ������� ����� ����� �������� � ������ ����� � ������� ������ ���������� ��������!!!
+					// ТУТ НАДО БУДЕТ СОХРАНИТЬ НАЗВАНИЕ БУРГЕРА ЧТОБЫ ПОТОМ ПЕРЕДАТЬ В ДРУГУЮ ФОРМУ И ВЫВЕСТИ СПИСОК ПОДХОДЯЩИХ БУРГЕРОВ!!!
 					String str = String.valueOf(sovp);
-					//tvInfo.setText(tvInfo.getText() + "��� ��������: "+ingr[0]+". ������� ����������: " + str +"%.");
+					//tvInfo.setText(tvInfo.getText() + "Вам подходит: "+ingr[0]+". Процент совпадений: " + str +"%.");
 					tvInfo.setText(tvInfo.getText() + ingr[0]+"." + str +"%");
-					// ���� ��������, ��������� ��� � ��������� � ����������
+					// если подходит, сохраняем имя и переходим к следующему
 				}
 				else {
 					//String str = String.valueOf(sovp);
-					//tvInfo.setText(tvInfo.getText() + "��� �� ��������: "+ingr[0]+". ������� ����������: " + str +"%.");
+					//tvInfo.setText(tvInfo.getText() + "Вам не подходит: "+ingr[0]+". Процент совпадений: " + str +"%.");
 				}
-		
 			}
-		
 	//	}
 		//else
 		//	burgers="222";

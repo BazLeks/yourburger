@@ -1,10 +1,7 @@
 package ru.brostudios.yourburger.screens;
 
 import java.util.List;
-<<<<<<< HEAD
 import android.util.Log;
-=======
->>>>>>> origin/Tills
 import ru.brostudios.framework.Application;
 import ru.brostudios.framework.Input;
 import ru.brostudios.framework.game.Sprite;
@@ -100,51 +97,37 @@ public class MainMenu extends ScreenInterface {
 		
 		// нажатия на кнопки "выбор бургера"
 		// обработка нажатий раскрывающихся кнопок
-		if(fixed_x == x) burger.update(events);
+		burger.update(events);
 		if(burger.getButton(Button_Ingredient).isTouchReleased()) {
-			if(fixed_x == x) {
-				Log.d("update", "Нажали на Button_Ingredient");
-				application.setScreen(new QuestionsScreen(application));
-			}
+			Log.d("update", "Нажали на Button_Ingredient");
+			application.setScreen(new QuestionsScreen(application));
 		}
 		if(burger.getButton(Button_List).isTouchReleased()) {
-			if(fixed_x == x) {
-				Log.d("update", "Нажали на Button_List");				
-			}
+			Log.d("update", "Нажали на Button_List");				
 		}
 		// нажатия на кнопки "выбор ресторана"
 		// обработка нажатий раскрывающихся кнопок
-		if(fixed_x == x) restaurant.update(events);
+		restaurant.update(events);
 		// -- кнопка kfc
 		if(restaurant.getButton(0).isTouchReleased()) {
-			if(fixed_x == x) {
-				application.setScreen(new RestMap(application));
-				Log.d("update", "Нажали на кнопку kfc");
-			}
+			application.setScreen(new RestMap(application));
+			Log.d("update", "Нажали на кнопку kfc");
 		}
 		// -- кнопка mcdonalds
 		if(restaurant.getButton(1).isTouchReleased()) {
-			if(fixed_x == x) {
-				Log.d("update", "Нажали на кнопку mcdonalds");				
-			}
+			Log.d("update", "Нажали на кнопку mcdonalds");
 		}
 		// -- кнопка burgerking
 		if(restaurant.getButton(2).isTouchReleased()) {
-			if(fixed_x == x) {
-				Log.d("update", "Нажали на кнопку burgerking");				
-			}
+			Log.d("update", "Нажали на кнопку burgerking");
 		}
 		// -- кнопка carlsjr
 		if(restaurant.getButton(3).isTouchReleased()) {
-			if(fixed_x == x) {
-				Log.d("update", "Нажали на кнопку carlsjr");				
-			}
+				Log.d("update", "Нажали на кнопку carlsjr");
 		}
 		// -- кнопка subway
 		if(restaurant.getButton(4).isTouchReleased()) {
-			if(fixed_x == x) {
-				Log.d("update", "Нажали на кнопку subway");				
-			}
+			Log.d("update", "Нажали на кнопку subway");	
 		}		
 	}
 
