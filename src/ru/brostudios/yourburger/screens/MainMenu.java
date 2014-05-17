@@ -1,7 +1,10 @@
 package ru.brostudios.yourburger.screens;
 
 import java.util.List;
+<<<<<<< HEAD
 import android.util.Log;
+=======
+>>>>>>> origin/Tills
 import ru.brostudios.framework.Application;
 import ru.brostudios.framework.Input;
 import ru.brostudios.framework.game.Sprite;
