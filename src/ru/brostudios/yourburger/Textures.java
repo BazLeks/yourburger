@@ -6,6 +6,7 @@ public class Textures {
 	public static Texture back;
 	public static Texture burger;
 	public static Texture restaurant;
+<<<<<<< HEAD
 	public static Texture title;
 	public static Texture list;
 	public static Texture ingredients;
@@ -16,4 +17,7 @@ public class Textures {
 	public static Texture burgerking;
 	public static Texture carlsjr;
 	public static Texture subway;
+=======
+	public static Texture questions;
+>>>>>>> origin/Yura
 }
