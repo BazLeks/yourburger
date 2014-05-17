@@ -6,4 +6,5 @@ public class Textures {
 	public static Texture back;
 	public static Texture burger;
 	public static Texture restaurant;
+	public static Texture questions;
 }

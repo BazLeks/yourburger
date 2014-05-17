@@ -1,5 +1,27 @@
 <resources>
 
     <string name="app_name">yourburger</string>
+    
+	<string name="questionName1">Тип котлеты</string>
+	<string name="questionChoise1_0">Говядина</string>
+	<string name="questionChoise1_1">Курица</string>
+	<string name="questionChoise1_2">Рыба</string>
+	<string name="questionChoise1_3">Нет</string>
+	
+	<string name="questionName2">Добавить огурцы</string>
+	<string name="questionChoise2_0">Да</string>
+	<string name="questionChoise2_1">Нет</string>
 
+	<string name="questionName3">Добавить помидоры</string>
+	<string name="questionChoise3_0">Да</string>
+	<string name="questionChoise3_1">Нет</string>
+	
+	<string name="questionName4">добавить листья салата</string>
+	<string name="questionChoise4_0">Да</string>
+	<string name="questionChoise4_1">Нет</string>	
+	
+	<string name="questionName5">добавить лук</string>
+	<string name="questionChoise5_0">Да</string>
+	<string name="questionChoise5_1">Нет</string>			
+	
 </resources>

@@ -5,7 +5,10 @@ import javax.microedition.khronos.opengles.GL10;
 
 import ru.brostudios.framework.interfaces.FrameworkInterface;
 import ru.brostudios.framework.interfaces.ScreenInterface;
+import ru.brostudios.yourburger.R;
+import ru.brostudios.yourburger.screens.QuestionsScreen;
 import android.app.Activity;
+import android.content.Intent;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,7 +38,11 @@ public abstract class Application extends Activity implements FrameworkInterface
 		GLSurfaceView view = new GLSurfaceView(this);
 		view.setRenderer(this);
 		view.setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
-		setContentView(view);
+//		setContentView(view);
+		QuestionsScreen qScreen = new QuestionsScreen();
+		Intent intent = new Intent();
+		intent.setClass(this, qScreen.getClass());
+	    startActivity(intent);
 		
 		graphics = new Graphics(view);
 		input = new Input(this);
