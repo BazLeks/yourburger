@@ -37,24 +37,23 @@ public class Texture {
 		gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_LINEAR);
 		gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR);
 		try {
-			// исходный поток
 			InputStream in = File.LoadFileFromAssets(game.getAssets(), filePath);
-			// грузим только размеры картинки
+			// пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 			BitmapFactory.Options options = new BitmapFactory.Options();
 			options.inJustDecodeBounds = true;
 			BitmapFactory.decodeStream(in, null, options);
 			in.close();
-			int origWidth = options.outWidth; //исходная ширина 
-			int origHeight = options.outHeight; //исходная высота 
-			int bytesPerPixel = 4; // 4 байта на пиксел (argb-модель)
-			int maxSize = 480 * 800 * bytesPerPixel; //Максимально разрешенный размер Bitmap
-			int desiredWidth = 512; //Нужная ширина
-			int desiredHeight = 512; //Нужная высота
-			int desiredSize = desiredWidth * desiredHeight * bytesPerPixel; //Максимально разрешенный размер Bitmap для заданных width х height
+			int origWidth = options.outWidth; //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ 
+			int origHeight = options.outHeight; //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ 
+			int bytesPerPixel = 4; // 4 пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ (argb-пїЅпїЅпїЅпїЅпїЅпїЅ)
+			int maxSize = 480 * 800 * bytesPerPixel; //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ Bitmap
+			int desiredWidth = 512; //пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+			int desiredHeight = 512; //пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+			int desiredSize = desiredWidth * desiredHeight * bytesPerPixel; //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ Bitmap пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ width пїЅ height
 			if (desiredSize < maxSize) maxSize = desiredSize;
-			int scale = 1; //кратность уменьшения
+			int scale = 1; //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 //			int origSize = origWidth * origHeight * bytesPerPixel;
-			//высчитываем кратность уменьшения
+			//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 			if (origWidth > origHeight) {
 				scale = Math.round((float) origHeight / (float) desiredHeight);
 			} else {
@@ -64,15 +63,16 @@ public class Texture {
 			options.inSampleSize = scale;
 			options.inPreferredConfig = Config.ARGB_8888;
 			
-			// обязательно открываем поток
+			// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 			in = File.LoadFileFromAssets(game.getAssets(), filePath);
-			Bitmap bitmap = BitmapFactory.decodeStream(in, null, options); //Полученный Bitmap
+			Bitmap bitmap = BitmapFactory.decodeStream(in, null, options); //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Bitmap
 			GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, bitmap, 0);
 			this.width = bitmap.getWidth(); this.height = bitmap.getHeight();
 			bitmap.recycle();
 		} catch(Exception e) {
 			Log.d("Load texture", e.getMessage());
 		}
+		Log.d("class Texture", "Good loading texture: "+filePath);
 		glID = textures[0];
 		gl.glBindTexture(GL10.GL_TEXTURE_2D, 0);
 		gl.glDisable(GL10.GL_TEXTURE_2D);

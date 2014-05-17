@@ -8,15 +8,11 @@ import ru.brostudios.framework.interfaces.InputInterface.TouchEvent;
 
 public class Button extends UserInterface {
 	
-	private static enum STATE { BUTTON_UP, BUTTON_DOWN, BUTTON_RELEASE }
-	private STATE state;
-	private float scale;
-	private Sprite sprite;
-	private float minScale;
-	//private AndroidGame game;
-	//private Texture texture;
-	//private FloatBuffer floatBuffer;
-	//private double x, y;
+	protected static enum STATE { BUTTON_UP, BUTTON_DOWN, BUTTON_RELEASE }
+	protected STATE state;
+	protected float scale;
+	protected Sprite sprite;
+	protected float minScale;
 
 // ************************************************************
 	
@@ -26,18 +22,9 @@ public class Button extends UserInterface {
 		sprite = new Sprite(app, texture, 1, 1);
 		this.scale = scale;
 		this.minScale = scale/10f;
-		//this.texture = texture;
-		//int screenW = game.getGraphics().getWidth();
-		//int screenH = game.getGraphics().getHeight();
-		//float scaleNew = 1.0f;
-//		if(screenW <= screenH) scaleNew = scale*screenW/texture.width;
-//		else scaleNew = scale*screenH/texture.height;
-//		this.scale = scaleNew;
 	}
 	
 	public void update(List<TouchEvent> touchEvents) {
-		
-		boolean isTouchDown = false;	// 
 		
 		for(int i=0; i<touchEvents.size(); i++) {
 			TouchEvent touchEvent = touchEvents.get(i);
@@ -57,7 +44,7 @@ public class Button extends UserInterface {
 				}
 				if(touchEvent.type == TouchEvent.TOUCH_UP) {
 					if(state == STATE.BUTTON_DOWN) {
-						state = STATE.BUTTON_UP;
+						state = STATE.BUTTON_RELEASE;
 						scale += minScale;
 					}
 				}
@@ -96,30 +83,24 @@ public class Button extends UserInterface {
 	
 	public void setActive(boolean active) { this.active = active; }
 	
-//	public void setTexture(Texture texture) { this.texture = texture; }
-	
-	public boolean isTouchDown() {
+	public final boolean isTouchDown() {
 		if(state == STATE.BUTTON_DOWN) return true;
 		else return false;
 	}
 	public boolean isTouchReleased() {
-		if(state == STATE.BUTTON_RELEASE) return true;
+		if(state == STATE.BUTTON_RELEASE) {
+			state = STATE.BUTTON_UP;
+			return true;
+		}
 		else return false;
 	}
-	public boolean isActive() {
-		return active;
-	}
 	
-	public double getX() { return x; }
+	public final double getX() { return x; }
+	public final double getY() { return y; }
+	public final STATE getState() { return state; }
+	public final float getScale() { return scale; }	
+	public final boolean getActive() { return active; }
 	
-	public double getY() { return y; }
 	
-	public STATE getState() { return state; }
-	
-	public boolean getActive() { return active; }
-	
-	public float getScale() { return scale; }
-	
-//	public Texture getTexture() { return texture; }
 
 }

@@ -1,23 +1,51 @@
 package ru.brostudios.framework;
 
+import java.util.Stack;
+
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
+
+import com.google.android.gms.maps.MapView;
 
 import ru.brostudios.framework.interfaces.FrameworkInterface;
 import ru.brostudios.framework.interfaces.ScreenInterface;
 import android.app.Activity;
+import android.media.ExifInterface;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.widget.Toast;
 
 public abstract class Application extends Activity implements FrameworkInterface, GLSurfaceView.Renderer {
 	
-	protected final boolean DEBUG = false; // ����������� ���� � ��� (��� BroStudios)
-	private ScreenInterface screen;	
+	protected final boolean DEBUG = false; 
+	
+	private Stack<ScreenInterface> screens;
+	private ScreenInterface currentScreen;	
+	private GLSurfaceView glView;
 	private Graphics graphics;
+	private MapView mapView;
 	private Input input;
-
+	
 // ********************************************************************************
+	
+	@Override
+	public void onBackPressed() {
+		Log.d("", "Нажата кнопка назад");
+		try {
+			currentScreen.pause();
+			currentScreen = screens.pop();
+			if(currentScreen==null) this.onDestroy();
+			currentScreen.resume();
+		} catch(Exception e) {
+			Toast toast = Toast.makeText(this, e.getCause()+"", Toast.LENGTH_SHORT);
+			toast.show();
+		}
+	}
+	
+	public final MapView getMapView() { return mapView; }
+	
 	public Application() {
 		Log.d("BroStudios", "AndroidGame.AndroidGame()");
 	}
@@ -28,57 +56,70 @@ public abstract class Application extends Activity implements FrameworkInterface
 	public void onCreate(Bundle savedInstanceState) {
 		Log.d("BroStudios", "AndroidGame.onCreate()");
 		super.onCreate(savedInstanceState);
+		screens = new Stack<ScreenInterface>();
+
 		//requestWindowFeature(Window.FEATURE_NO_TITLE);
-		//getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		//getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLcurrentScreen, WindowManager.LayoutParams.FLAG_FULLcurrentScreen);
 		//getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
 		
-		GLSurfaceView view = new GLSurfaceView(this);
-		view.setRenderer(this);
-		view.setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
-		setContentView(view);
+		mapView = new MapView(this);
+		mapView.onCreate(savedInstanceState);
+		glView = new GLSurfaceView(this);
+		glView.setRenderer(this);
+		glView.setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
+		currentScreen = getStartScreen();
+		//setContentView(glView);
 		
-		graphics = new Graphics(view);
+		graphics = new Graphics(glView);
 		input = new Input(this);
 	}
 
 	@Override
 	public void onResume() {
 		Log.d("BroStudios", "FrameworkActivity.onResume()");
-		if(screen!=null) screen.resume();
 		super.onResume();
+		if(currentScreen!=null) currentScreen.resume();
 	}
 
 	@Override
 	public void onPause() {
 		Log.d("BroStudios", "FrameworkActivity.onPause()");
-		if(screen!=null) screen.pause();
+		if(currentScreen!=null) currentScreen.pause();
 		super.onPause();
 	}
 
 	@Override
 	public void onDestroy() {
 		Log.d("BroStudios", "FrameworkActivity.onDestroy()");
-		if(screen!=null) screen.destroy();
+		if(currentScreen!=null) currentScreen.destroy();
 		super.onDestroy();	
 	}
 	
 	// ------------------------------------------------------------
+	
 	public abstract ScreenInterface getStartScreen();
 	public abstract void loadGameTextures();
 	
 	public ScreenInterface getCurrentScreen() {
-		return screen;
+		return currentScreen;
 	}
 	
-	public void setScreen(ScreenInterface screen) {
-		if(screen == null) { Log.d("BroStudios", "Unable to set screen = null"); return; }
-		if(this.screen != null) {
-			this.screen.pause();
-			this.screen.destroy();
-		}
-		screen.resume();
-		screen.update();
-		this.screen = screen;
+	public void setScreen(final ScreenInterface currentScreen) {
+		this.runOnUiThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				synchronized (this) {
+					if(currentScreen == null) { Log.d("BroStudios", "Unable to set currentScreen = null"); return; }
+					screens.push(Application.this.currentScreen);
+					Application.this.currentScreen.pause();
+					Application.this.currentScreen.destroy();
+					currentScreen.resume();
+					currentScreen.update();
+					Application.this.currentScreen = currentScreen;
+				}
+			}
+		});
 	}
 	
 
@@ -93,8 +134,8 @@ public abstract class Application extends Activity implements FrameworkInterface
 	@Override
 	public void onDrawFrame(GL10 gl) {
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		screen.update();
-		screen.present();
+		currentScreen.update();
+		currentScreen.present();
 	}
 
 	@Override
@@ -112,6 +153,7 @@ public abstract class Application extends Activity implements FrameworkInterface
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
 		graphics.setGL(gl);
 		loadGameTextures();
-		if(screen==null) screen = getStartScreen();
+		currentScreen.create();
+		//currentScreen.resume();
 	}
 }

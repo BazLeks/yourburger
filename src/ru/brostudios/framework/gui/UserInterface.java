@@ -18,6 +18,8 @@ public abstract class UserInterface {
 	}
 	public void activate() { active = true; }
 	public void deactivate() { active = false; }
+	public final boolean isActive() { return active; }
+
 	public abstract void present();
 	public abstract void update(List<TouchEvent> touchEvents);
 }
