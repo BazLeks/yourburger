@@ -32,7 +32,7 @@
                 android:layout_weight="1.86" >
 
                 <TextView
-                    android:id="@+id/textView1"
+                    android:id="@+id/restaurant_name"
                     android:layout_width="match_parent"
                     android:layout_height="71dp"
                     android:layout_gravity="center"

@@ -56,7 +56,7 @@ public class QuestionsScreen extends ScreenInterface {
 		radiogroup = (RadioGroup)application.findViewById(R.id.radioGroup2);
 		// radiogroup.clearCheck();
 		
-		tvInfo = (TextView)application.findViewById(R.id.textView1);	
+		tvInfo = (TextView)application.findViewById(R.id.restaurant_name);	
 		choise0 = (TextView)application.findViewById(R.id.radio0);
 		choise1 = (TextView)application.findViewById(R.id.radio1);	
 		choise2 = (TextView)application.findViewById(R.id.radio2);	
