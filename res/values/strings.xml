@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">yourburger</string>
+    <string name="app_name">YourBurger</string>
     
 	<string name="questionName1">Тип котлеты</string>
 	<string name="questionChoise1_0">Говядина</string>

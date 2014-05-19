@@ -1,8 +1,4 @@
 package ru.brostudios.yourburger.screens;
-/**
- * Автор: Юра Леонтьев
- * Дата: 17.05.2014
- */
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -30,8 +26,8 @@ public class QuestionsScreen extends ScreenInterface {
 	private Button btn;
 	private int choise;
 	
-	private int number; 	// номер вопроса
-	private String result;	// номер ответа 
+	private int number; 	// РЅРѕРјРµСЂ РІРѕРїСЂРѕСЃР°
+	private String result;	// РЅРѕРјРµСЂ РѕС‚РІРµС‚Р° 
 // *************************************************************
 	
 	public QuestionsScreen(Application application) {
@@ -51,8 +47,8 @@ public class QuestionsScreen extends ScreenInterface {
 
 	@Override
 	public void resume() {
-		number = 1;	// номер вопроса в опроснике
-		result = ""; // строка ответа в опроснике
+		number = 1;	// РЅРѕРјРµСЂ РІРѕРїСЂРѕСЃР° РІ РѕРїСЂРѕСЃРЅРёРєРµ
+		result = ""; // СЃС‚СЂРѕРєР° РѕС‚РІРµС‚Р° РІ РѕРїСЂРѕСЃРЅРёРєРµ
 		
 		application.setContentView(R.layout.questions_screen);
 		
@@ -120,7 +116,7 @@ public class QuestionsScreen extends ScreenInterface {
 				choise3.setText(R.string.questionChoise1_3);
 				break;
 		    case 2:
-		    	// спрятать 2 радиобаттона
+		    	// СЃРїСЂСЏС‚Р°С‚СЊ 2 СЂР°РґРёРѕР±Р°С‚С‚РѕРЅР°
 				choise2.setVisibility(android.view.View.INVISIBLE);
 				choise3.setVisibility(android.view.View.INVISIBLE);
 				
@@ -144,8 +140,8 @@ public class QuestionsScreen extends ScreenInterface {
 				choise1.setText(R.string.questionChoise5_1);
 				break;
 		    default:
-		    	tvInfo.setText("Спасибо за ответы! Мы учли ваши пожелания!");
-		    	buttonText.setText("Посмотреть");
+		    	tvInfo.setText("РЎРїР°СЃРёР±Рѕ Р·Р° РѕС‚РІРµС‚С‹! РњС‹ СѓС‡Р»Рё РІР°С€Рё РїРѕР¶РµР»Р°РЅРёСЏ!");
+		    	buttonText.setText("РџРѕСЃРјРѕС‚СЂРµС‚СЊ");
 		    //	tvInfo.setVisibility(android.view.View.INVISIBLE);
 				choise0.setVisibility(android.view.View.INVISIBLE);
 				choise1.setVisibility(android.view.View.INVISIBLE);
@@ -161,43 +157,43 @@ public class QuestionsScreen extends ScreenInterface {
 		//boolean openFile = file.open("burger");
 		//if(openFile){
 			//burgers = file.read();
-			burgers =  "Биг мак!0!0!1!0!0!]Биг тейсти!0!1!0!0!0!]";
+			burgers =  "Р‘РёРі РјР°Рє!0!0!1!0!0!]Р‘РёРі С‚РµР№СЃС‚Рё!0!1!0!0!0!]";
 			
-			int countBurger = 2; 		// здесь указываем сколько бургеров есть в базе.
-			int countIngridient = 6;	// здесь указываем сколько ингридиентов в строке + имя.
-			int countQuestions = 5;		// здесь указываем количество вопросов в опроснике.
+			int countBurger = 2; 		// Р·РґРµСЃСЊ СѓРєР°Р·С‹РІР°РµРј СЃРєРѕР»СЊРєРѕ Р±СѓСЂРіРµСЂРѕРІ РµСЃС‚СЊ РІ Р±Р°Р·Рµ.
+			int countIngridient = 6;	// Р·РґРµСЃСЊ СѓРєР°Р·С‹РІР°РµРј СЃРєРѕР»СЊРєРѕ РёРЅРіСЂРёРґРёРµРЅС‚РѕРІ РІ СЃС‚СЂРѕРєРµ + РёРјСЏ.
+			int countQuestions = 5;		// Р·РґРµСЃСЊ СѓРєР°Р·С‹РІР°РµРј РєРѕР»РёС‡РµСЃС‚РІРѕ РІРѕРїСЂРѕСЃРѕРІ РІ РѕРїСЂРѕСЃРЅРёРєРµ.
 			int numberOfMatches = 0;
 			
 			String[] bur = new String[countBurger]; 
-			String[] ingr = new String[countIngridient]; // здесь указываем сколько ингридиентов в строке + имя.
+			String[] ingr = new String[countIngridient]; // Р·РґРµСЃСЊ СѓРєР°Р·С‹РІР°РµРј СЃРєРѕР»СЊРєРѕ РёРЅРіСЂРёРґРёРµРЅС‚РѕРІ РІ СЃС‚СЂРѕРєРµ + РёРјСЏ.
 			String[] opros = new String[countQuestions];
 			
-			opros=result.split("!"); // парсинг строки ответов (то что наотвечали)
-			bur=burgers.split("]"); // парсинг всех бургеров (в bur будут все бургеры вида: Ѕиг маг!0!1!0!1!1!)
+			opros=result.split("!"); // РїР°СЂСЃРёРЅРі СЃС‚СЂРѕРєРё РѕС‚РІРµС‚РѕРІ (С‚Рѕ С‡С‚Рѕ РЅР°РѕС‚РІРµС‡Р°Р»Рё)
+			bur=burgers.split("]"); // РїР°СЂСЃРёРЅРі РІСЃРµС… Р±СѓСЂРіРµСЂРѕРІ (РІ bur Р±СѓРґСѓС‚ РІСЃРµ Р±СѓСЂРіРµСЂС‹ РІРёРґР°: Р…РёРі РјР°Рі!0!1!0!1!1!)
 			
-			tvInfo.setText(""); // ПОТОМ УБРАТЬ!!!
+			tvInfo.setText(""); // РџРћРўРћРњ РЈР‘Р РђРўР¬!!!
 			for (int i=0;i<countBurger; i++, numberOfMatches=0){
-				ingr=bur[i].split("!"); // парсинг каждой исходной строки с бургером
+				ingr=bur[i].split("!"); // РїР°СЂСЃРёРЅРі РєР°Р¶РґРѕР№ РёСЃС…РѕРґРЅРѕР№ СЃС‚СЂРѕРєРё СЃ Р±СѓСЂРіРµСЂРѕРј
 							
 							
 				for (int j=0;j<countQuestions;j++){
 					if (ingr[j+1].equals(opros[j])){
-						numberOfMatches++; // счетчик совпадений ответов и исходного бургера
+						numberOfMatches++; // СЃС‡РµС‚С‡РёРє СЃРѕРІРїР°РґРµРЅРёР№ РѕС‚РІРµС‚РѕРІ Рё РёСЃС…РѕРґРЅРѕРіРѕ Р±СѓСЂРіРµСЂР°
 					}
 				}
 		
 				float sovpadenie =  ((float)numberOfMatches/(float)countQuestions)*100f;
 				int sovp = (int) sovpadenie;
 				if (sovpadenie >= 50){
-					// ТУТ НАДО БУДЕТ СОХРАНИТЬ НАЗВАНИЕ БУРГЕРА ЧТОБЫ ПОТОМ ПЕРЕДАТЬ В ДРУГУЮ ФОРМУ И ВЫВЕСТИ СПИСОК ПОДХОДЯЩИХ БУРГЕРОВ!!!
+					// РўРЈРў РќРђР”Рћ Р‘РЈР”Р•Рў РЎРћРҐР РђРќР�РўР¬ РќРђР—Р’РђРќР�Р• Р‘РЈР Р“Р•Р Рђ Р§РўРћР‘Р« РџРћРўРћРњ РџР•Р Р•Р”РђРўР¬ Р’ Р”Р РЈР“РЈР® Р¤РћР РњРЈ Р� Р’Р«Р’Р•РЎРўР� РЎРџР�РЎРћРљВ РџРћР”РҐРћР”РЇР©Р�РҐ Р‘РЈР Р“Р•Р РћР’!!!
 					String str = String.valueOf(sovp);
-					//tvInfo.setText(tvInfo.getText() + "Вам подходит: "+ingr[0]+". Процент совпадений: " + str +"%.");
+					//tvInfo.setText(tvInfo.getText() + "Р’Р°Рј РїРѕРґС…РѕРґРёС‚: "+ingr[0]+". РџСЂРѕС†РµРЅС‚ СЃРѕРІРїР°РґРµРЅРёР№: " + str +"%.");
 					tvInfo.setText(tvInfo.getText() + ingr[0]+"." + str +"%");
-					// если подходит, сохраняем имя и переходим к следующему
+					// РµСЃР»Рё РїРѕРґС…РѕРґРёС‚, СЃРѕС…СЂР°РЅСЏРµРј РёРјСЏ Рё РїРµСЂРµС…РѕРґРёРј Рє СЃР»РµРґСѓСЋС‰РµРјСѓ
 				}
 				else {
 					//String str = String.valueOf(sovp);
-					//tvInfo.setText(tvInfo.getText() + "Вам не подходит: "+ingr[0]+". Процент совпадений: " + str +"%.");
+					//tvInfo.setText(tvInfo.getText() + "Р’Р°Рј РЅРµ РїРѕРґС…РѕРґРёС‚: "+ingr[0]+". РџСЂРѕС†РµРЅС‚ СЃРѕРІРїР°РґРµРЅРёР№: " + str +"%.");
 				}
 			}
 	//	}
