@@ -9,10 +9,7 @@ import com.google.android.gms.maps.MapView;
 
 import ru.brostudios.framework.interfaces.FrameworkInterface;
 import ru.brostudios.framework.interfaces.ScreenInterface;
-import ru.brostudios.yourburger.R;
-import ru.brostudios.yourburger.screens.QuestionsScreen;
 import android.app.Activity;
-import android.content.Intent;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,7 +30,7 @@ public abstract class Application extends Activity implements FrameworkInterface
 	
 	@Override
 	public void onBackPressed() {
-		Log.d("", "Нажата кнопка назад");
+		Log.d("yourburger", "Нажата кнопка назад");
 		try {
 			currentScreen.pause();
 			currentScreen = screens.pop();
@@ -49,14 +46,14 @@ public abstract class Application extends Activity implements FrameworkInterface
 	public final MapView getMapView() { return mapView; }
 	
 	public Application() {
-		Log.d("BroStudios", "AndroidGame.AndroidGame()");
+		Log.d("BroStudios", "new Application.Application()");
 	}
 	
 	// Activity methods
 	// ------------------------------------------------------------
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		Log.d("BroStudios", "AndroidGame.onCreate()");
+		Log.d("BroStudios", "application.onCreate()");
 		super.onCreate(savedInstanceState);
 		screens = new Stack<ScreenInterface>();
 
@@ -78,21 +75,23 @@ public abstract class Application extends Activity implements FrameworkInterface
 
 	@Override
 	public void onResume() {
-		Log.d("BroStudios", "FrameworkActivity.onResume()");
+		Log.d("BroStudios", "application.onResume()");
 		super.onResume();
 		if(currentScreen!=null) currentScreen.resume();
 	}
 
 	@Override
 	public void onPause() {
-		Log.d("BroStudios", "FrameworkActivity.onPause()");
+		Log.d("BroStudios", "application.onPause()");
 		if(currentScreen!=null) currentScreen.pause();
 		super.onPause();
 	}
 
 	@Override
 	public void onDestroy() {
-		Log.d("BroStudios", "FrameworkActivity.onDestroy()");
+		Log.d("BroStudios", "application.onDestroy()");
+		Toast toast = Toast.makeText(this, "Вы закрыли приложение", Toast.LENGTH_SHORT);
+		toast.show();
 		if(currentScreen!=null) currentScreen.destroy();
 		super.onDestroy();	
 	}
@@ -112,7 +111,7 @@ public abstract class Application extends Activity implements FrameworkInterface
 			@Override
 			public void run() {
 				synchronized (this) {
-					if(currentScreen == null) { Log.d("BroStudios", "Unable to set currentScreen = null"); return; }
+					if(currentScreen == null) { Log.d("BroStudios", "Устанавливаемый экран равен null"); return; }
 					screens.push(Application.this.currentScreen);
 					Application.this.currentScreen.pause();
 					Application.this.currentScreen.destroy();

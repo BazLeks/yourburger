@@ -182,7 +182,7 @@ public class Input implements InputInterface {
 	private InputAccelHandler accelHandler;
 	
 	public Input(Application game) {
-		Log.d("BroStudios", "Input.Input()");
+		Log.d("BroStudios", "new Input.Input()");
 		touchHandler = new InputTouchHandler(game.getGraphics().getView());
 		accelHandler = new InputAccelHandler(game);
 	}

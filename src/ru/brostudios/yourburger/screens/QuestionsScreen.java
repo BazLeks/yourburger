@@ -3,10 +3,6 @@ package ru.brostudios.yourburger.screens;
  * Автор: Юра Леонтьев
  * Дата: 17.05.2014
  */
-
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
-import android.os.Build;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,9 +15,9 @@ import ru.brostudios.framework.interfaces.ScreenInterface;
 import ru.brostudios.yourburger.R;
 
 
-@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-@SuppressLint("NewApi")
 public class QuestionsScreen extends ScreenInterface {
+	
+	StringBuilder builder = new StringBuilder();
 	
 	private RadioGroup radiogroup;
 	private TextView tvInfo, buttonText;
@@ -32,6 +28,7 @@ public class QuestionsScreen extends ScreenInterface {
 	
 	private int number; 	// номер вопроса
 	private String result;	// номер ответа 
+	private int howBurgers;	// сколько бургеров подходит
 // *************************************************************
 	
 	public QuestionsScreen(Application application) {
@@ -89,16 +86,25 @@ public class QuestionsScreen extends ScreenInterface {
 			}
 		});
 				
-
 		btn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Log.d("", "click()");
-				if(number<=5 && number>=1)
-			    	result += String.valueOf(choise)+ "!";
+				if(number>=1 && number<=5) result += String.valueOf(choise)+ "!";
 				number++;
 				quest(number);
-				if(number == 7) application.setScreen(new BurgerInfo(application));
+				if(number == 7) {
+					QuestionsScreen.this.process();
+					// отрезаем последний символ в строке
+					String burgers = null;
+					Log.d("yourburger", "builder: "+builder+" size: "+builder.length());
+					if(builder!=null && builder.length()!=0) {
+						burgers = builder.substring(0, builder.length()-1);
+					}
+					application.setScreen(new CompBurgers(application, burgers, howBurgers));
+					// очищаем переменные результата для нового опроса
+					howBurgers = 0;
+					builder.setLength(0);
+				}
 			}
 		});
 	}
@@ -151,11 +157,11 @@ public class QuestionsScreen extends ScreenInterface {
 				choise1.setVisibility(android.view.View.INVISIBLE);
 				choise2.setVisibility(android.view.View.INVISIBLE);
 				choise3.setVisibility(android.view.View.INVISIBLE);
-				this.process();
 		 }
 	}
 	
 	public void process(){
+		
 		File file = new File();
 		String burgers="";
 		//boolean openFile = file.open("burger");
@@ -164,22 +170,21 @@ public class QuestionsScreen extends ScreenInterface {
 			burgers =  "Биг мак!0!0!1!0!0!]Биг тейсти!0!1!0!0!0!]";
 			
 			int countBurger = 2; 		// здесь указываем сколько бургеров есть в базе.
-			int countIngridient = 6;	// здесь указываем сколько ингридиентов в строке + имя.
+			int countIngredient = 6;	// здесь указываем сколько ингредиентов в строке + имя.
 			int countQuestions = 5;		// здесь указываем количество вопросов в опроснике.
 			int numberOfMatches = 0;
 			
 			String[] bur = new String[countBurger]; 
-			String[] ingr = new String[countIngridient]; // здесь указываем сколько ингридиентов в строке + имя.
+			String[] ingr = new String[countIngredient]; // здесь указываем сколько ингредиентов в строке + имя.
 			String[] opros = new String[countQuestions];
 			
 			opros=result.split("!"); // парсинг строки ответов (то что наотвечали)
 			bur=burgers.split("]"); // парсинг всех бургеров (в bur будут все бургеры вида: Ѕиг маг!0!1!0!1!1!)
 			
 			tvInfo.setText(""); // ПОТОМ УБРАТЬ!!!
-			for (int i=0;i<countBurger; i++, numberOfMatches=0){
+			for (int i=0;i<countBurger; i++, numberOfMatches = 0) {
 				ingr=bur[i].split("!"); // парсинг каждой исходной строки с бургером
-							
-							
+				String name = ingr[0];
 				for (int j=0;j<countQuestions;j++){
 					if (ingr[j+1].equals(opros[j])){
 						numberOfMatches++; // счетчик совпадений ответов и исходного бургера
@@ -192,7 +197,9 @@ public class QuestionsScreen extends ScreenInterface {
 					// ТУТ НАДО БУДЕТ СОХРАНИТЬ НАЗВАНИЕ БУРГЕРА ЧТОБЫ ПОТОМ ПЕРЕДАТЬ В ДРУГУЮ ФОРМУ И ВЫВЕСТИ СПИСОК ПОДХОДЯЩИХ БУРГЕРОВ!!!
 					String str = String.valueOf(sovp);
 					//tvInfo.setText(tvInfo.getText() + "Вам подходит: "+ingr[0]+". Процент совпадений: " + str +"%.");
-					tvInfo.setText(tvInfo.getText() + ingr[0]+"." + str +"%");
+					//tvInfo.setText(tvInfo.getText() + ingr[0]+"." + str +"%");
+					builder.append(name+"!"+Math.round(sovpadenie)+"!");
+					howBurgers++;
 					// если подходит, сохраняем имя и переходим к следующему
 				}
 				else {

@@ -13,6 +13,7 @@ public class RestMap extends ScreenInterface {
 	public RestMap(Application application) {
 		super(application);	
 		view = application.getMapView();
+		
 	}
 
 	@Override
@@ -29,6 +30,7 @@ public class RestMap extends ScreenInterface {
 	public void resume() {
 		view.onResume();
 		application.setContentView(view);
+		view.getMap().setMyLocationEnabled(true);
 	}
 
 	@Override

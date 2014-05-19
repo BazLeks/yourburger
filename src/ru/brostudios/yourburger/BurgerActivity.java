@@ -2,15 +2,14 @@ package ru.brostudios.yourburger;
 
 import ru.brostudios.framework.Application;
 import ru.brostudios.framework.game.Texture;
-import ru.brostudios.framework.interfaces.ScreenInterface;
 import ru.brostudios.yourburger.screens.MainMenu;
-import ru.brostudios.yourburger.screens.QuestionsScreen;
+import ru.brostudios.framework.interfaces.ScreenInterface;
 
 public class BurgerActivity extends Application {
 
 	@Override
 	public ScreenInterface getStartScreen() {
-	 return new MainMenu(this);
+		return new MainMenu(this);
 	}
 
 	@Override
@@ -29,10 +28,5 @@ public class BurgerActivity extends Application {
 		Textures.carlsjr = new Texture(this, "carlsjr.png");
 		Textures.burgerking = new Texture(this, "burgerking.png");
 		Textures.subway = new Texture(this, "subway.png");
-
-		// Textures.restaurant = new Texture(this, "MainMenu/restaurant.png");
-		// Textures.burger = new Texture(this, "MainMenu/burger.png");
-		Textures.back = new Texture(this, "back.png");
-		Textures.questions = new Texture(this, "questions.png");
 	}
 }
