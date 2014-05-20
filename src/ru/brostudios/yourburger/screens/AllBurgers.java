@@ -9,7 +9,9 @@ import android.widget.TextView;
 import android.widget.LinearLayout.LayoutParams;
 import ru.brostudios.framework.Application;
 import ru.brostudios.framework.interfaces.ScreenInterface;
+import ru.brostudios.yourburger.BurgerActivity;
 import ru.brostudios.yourburger.R;
+import ru.brostudios.yourburger.BurgerActivity.RestInfo;
 
 public class AllBurgers extends ScreenInterface {
 
@@ -98,10 +100,14 @@ public class AllBurgers extends ScreenInterface {
 	public void resume() {
 		LinearLayout layout = new LinearLayout(application);
 		layout.setOrientation(LinearLayout.VERTICAL);
-		for(int i=0;i<burgers.length;i++) {
-			BurgerItem item = new BurgerItem(application, burgers[i]);
-			layout.addView(item);
+		RestInfo[] rests = BurgerActivity.restaurants;
+		for(int i=0;i<rests.length;i++) {
+			for(int j=0;j<rests[i].burgersInfo.size();j++) {
+				BurgerItem item = new BurgerItem(application, rests[i].burgersInfo.get(j).name);
+				layout.addView(item);
+			}			
 		}
+		
 		application.setContentView(layout);
 	}
 
