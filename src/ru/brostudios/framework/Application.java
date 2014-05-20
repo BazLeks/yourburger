@@ -1,12 +1,9 @@
 package ru.brostudios.framework;
 
 import java.util.Stack;
-
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
-
 import com.google.android.gms.maps.MapView;
-
 import ru.brostudios.framework.interfaces.FrameworkInterface;
 import ru.brostudios.framework.interfaces.ScreenInterface;
 import android.app.Activity;
@@ -44,6 +41,13 @@ public abstract class Application extends Activity implements FrameworkInterface
 	}
 	
 	public final MapView getMapView() { return mapView; }
+	
+	public void GoToMainMenu() {
+		ScreenInterface mainmenu = screens.elementAt(0);
+		screens.clear();
+		screens.add(mainmenu);
+		setScreen(mainmenu);
+	}
 	
 	public Application() {
 		Log.d("BroStudios", "new Application.Application()");

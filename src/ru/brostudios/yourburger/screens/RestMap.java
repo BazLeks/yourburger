@@ -13,7 +13,6 @@ public class RestMap extends ScreenInterface {
 	public RestMap(Application application) {
 		super(application);	
 		view = application.getMapView();
-		
 	}
 
 	@Override

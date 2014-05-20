@@ -2,9 +2,7 @@ package ru.brostudios.yourburger;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.google.android.gms.internal.bu;
-
 import ru.brostudios.framework.Application;
 import ru.brostudios.framework.game.Texture;
 import ru.brostudios.yourburger.screens.MainMenu;
@@ -19,7 +17,7 @@ public class BurgerActivity extends Application {
 		public static final int MCDONALDS = 0;
 		public static final int KFC = 1;
 		public static final int BURGERKING = 2;
-		public static final int KARLSJR = 3;
+		public static final int CARLSJR = 3;
 		public static final int SUBWAY = 4;
 		
 		public class BurgerInfo {
@@ -50,7 +48,6 @@ public class BurgerActivity extends Application {
 		
 		public void addBurger(String name, String picturePath, String description, String string) {
 			burgersInfo.add(new BurgerInfo(name, picturePath, description, string));
-			
 		}
 	}
 	
@@ -59,23 +56,23 @@ public class BurgerActivity extends Application {
 	@Override
 	public ScreenInterface getStartScreen() {
 		restaurants = new RestInfo[5];
-		restaurants[RestInfo.MCDONALDS] = new RestInfo("Макдональдс", "mcdonalds/logo.png", "Описание");
+		restaurants[RestInfo.MCDONALDS] = new RestInfo("McDonald's", "mcdonalds/logo.png", "Описание макдака");
 		restaurants[RestInfo.MCDONALDS].addBurger("Биг мак", "mcdonalds/bigmac.png", "Описание бигмака", "");
 		restaurants[RestInfo.MCDONALDS].addBurger("Биг тейсти", "mcdonalds/bigtasty.png", "Описание биг тейсти", "");
 		
-		restaurants[RestInfo.KFC] = new RestInfo("Кфс", "kfc/logo.png", "Описание");
+		restaurants[RestInfo.KFC] = new RestInfo("KFC", "kfc/logo.png", "Описание кфц");
 		restaurants[RestInfo.KFC].addBurger("Сандерс", "kfc/sanders.png", "Описание сандерс", "");
 		restaurants[RestInfo.KFC].addBurger("Зингер", "kfc/zinder.png", "Описание зингера", "");
 		
-		restaurants[RestInfo.BURGERKING] = new RestInfo("Бургер Кинг", "burgerking/logo.png", "Описание");
+		restaurants[RestInfo.BURGERKING] = new RestInfo("Burger King", "burgerking/logo.png", "Описание бургер кинга");
 		restaurants[RestInfo.BURGERKING].addBurger("Воппер", "burgerking/wopper.png", "Описание воппера", "");
 		restaurants[RestInfo.BURGERKING].addBurger("Стейкхаус", "burgerking/steik.png", "Описание стейкхауса", "");
 		
-		restaurants[RestInfo.KARLSJR] = new RestInfo("Карлс Джуниор", "karlsjr/logo.png", "Описание");
-		restaurants[RestInfo.KARLSJR].addBurger("Гуакамоле", "karlsjr/guakamole.png", "Описание гуакамоле", "");
-		restaurants[RestInfo.KARLSJR].addBurger("Биг марбл", "karlsjr/bigmurble.png", "Описание биг марбл", "");
+		restaurants[RestInfo.CARLSJR] = new RestInfo("Carl's Jr.", "carlsjr/logo.png", "Описание карс");
+		restaurants[RestInfo.CARLSJR].addBurger("Гуакамоле", "carlsjr/guakamole.png", "Описание гуакамоле", "");
+		restaurants[RestInfo.CARLSJR].addBurger("Биг марбл", "carlsjr/bigmurble.png", "Описание биг марбл", "");
 		
-		restaurants[RestInfo.SUBWAY] = new RestInfo("Сабвэй", "subway/logo.png", "Описание");
+		restaurants[RestInfo.SUBWAY] = new RestInfo("SUBWAY", "subway/logo.png", "Описание сабвея");
 		restaurants[RestInfo.SUBWAY].addBurger("Сабвей клаб", "subway/club.png", "Описание сабвей клаб", "");
 		restaurants[RestInfo.SUBWAY].addBurger("Тунец", "subway/tunets.png", "Описание тунец", "");
 		
@@ -84,7 +81,6 @@ public class BurgerActivity extends Application {
 
 	@Override
 	public void loadGameTextures() {
-		
 		Textures.restaurant = new Texture(this, "restaurant.png");
 		Textures.burger = new Texture(this, "burger.png");
 		Textures.back = new Texture(this, "back.png");

@@ -1,6 +1,7 @@
 package ru.brostudios.yourburger.screens;
 
 import java.util.List;
+
 import android.util.Log;
 import ru.brostudios.framework.Application;
 import ru.brostudios.framework.Input;
@@ -9,7 +10,9 @@ import ru.brostudios.framework.gui.Button;
 import ru.brostudios.framework.gui.ButtonBoss;
 import ru.brostudios.framework.interfaces.InputInterface.TouchEvent;
 import ru.brostudios.framework.interfaces.ScreenInterface;
+import ru.brostudios.yourburger.BurgerActivity;
 import ru.brostudios.yourburger.Textures;
+import ru.brostudios.yourburger.BurgerActivity.RestInfo;
 
 public class MainMenu extends ScreenInterface {
 
@@ -111,27 +114,27 @@ public class MainMenu extends ScreenInterface {
 		restaurant.update(events);
 		// -- кнопка kfc
 		if(restaurant.getButton(0).isTouchReleased()) {
-			application.setScreen(new RestaurantInfo(application, "KFC"));
+			application.setScreen(new RestaurantInfo(application, BurgerActivity.restaurants[RestInfo.KFC]));
 			Log.d("yourburger", "Нажали на кнопку kfc");
 		}
 		// -- кнопка mcdonalds
 		if(restaurant.getButton(1).isTouchReleased()) {
-			//application.setScreen(new RestaurantInfo(application, "KFC"));
+			application.setScreen(new RestaurantInfo(application, BurgerActivity.restaurants[RestInfo.MCDONALDS]));
 			Log.d("yourburger", "Нажали на кнопку mcdonalds");
 		}
 		// -- кнопка burgerking
 		if(restaurant.getButton(2).isTouchReleased()) {
-			//application.setScreen(new RestaurantInfo(application, "KFC"));
+			application.setScreen(new RestaurantInfo(application, BurgerActivity.restaurants[RestInfo.BURGERKING]));
 			Log.d("yourburger", "Нажали на кнопку burgerking");
 		}
 		// -- кнопка carlsjr
 		if(restaurant.getButton(3).isTouchReleased()) {
-			//application.setScreen(new RestaurantInfo(application, "CARLSJR"));
+			application.setScreen(new RestaurantInfo(application, BurgerActivity.restaurants[RestInfo.CARLSJR]));
 			Log.d("yourburger", "Нажали на кнопку carlsjr");
 		}
 		// -- кнопка subway
 		if(restaurant.getButton(4).isTouchReleased()) {
-			application.setScreen(new RestaurantInfo(application, "SUBWAY"));
+			application.setScreen(new RestaurantInfo(application, BurgerActivity.restaurants[RestInfo.SUBWAY]));
 			Log.d("yourburger", "Нажали на кнопку subway");	
 		}		
 	}
