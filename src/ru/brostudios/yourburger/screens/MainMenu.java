@@ -103,36 +103,35 @@ public class MainMenu extends ScreenInterface {
 			application.setScreen(new QuestionsScreen(application));
 		}
 		if(burger.getButton(Button_List).isTouchReleased()) {
-<<<<<<< HEAD
 			Log.d("yourburger", "Нажали на Button_List");
 			application.setScreen(new AllBurgers(application, "Биг мак!Биг тейсти!Чизбургер!Гамбургер"));
-=======
-			application.setScreen(new RestaurantInfo(application, "KFC"));
-			Log.d("update", "Нажали на Button_List");				
->>>>>>> origin/lex
 		}
 		// нажатия на кнопки "выбор ресторана"
 		// обработка нажатий раскрывающихся кнопок
 		restaurant.update(events);
 		// -- кнопка kfc
 		if(restaurant.getButton(0).isTouchReleased()) {
-			application.setScreen(new RestMap(application));
+			application.setScreen(new RestaurantInfo(application, "KFC"));
 			Log.d("yourburger", "Нажали на кнопку kfc");
 		}
 		// -- кнопка mcdonalds
 		if(restaurant.getButton(1).isTouchReleased()) {
+			//application.setScreen(new RestaurantInfo(application, "KFC"));
 			Log.d("yourburger", "Нажали на кнопку mcdonalds");
 		}
 		// -- кнопка burgerking
 		if(restaurant.getButton(2).isTouchReleased()) {
+			//application.setScreen(new RestaurantInfo(application, "KFC"));
 			Log.d("yourburger", "Нажали на кнопку burgerking");
 		}
 		// -- кнопка carlsjr
 		if(restaurant.getButton(3).isTouchReleased()) {
+			//application.setScreen(new RestaurantInfo(application, "CARLSJR"));
 			Log.d("yourburger", "Нажали на кнопку carlsjr");
 		}
 		// -- кнопка subway
 		if(restaurant.getButton(4).isTouchReleased()) {
+			application.setScreen(new RestaurantInfo(application, "SUBWAY"));
 			Log.d("yourburger", "Нажали на кнопку subway");	
 		}		
 	}

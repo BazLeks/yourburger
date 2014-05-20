@@ -1,15 +1,12 @@
 package ru.brostudios.yourburger.screens;
-<<<<<<< HEAD
 /**
  * Автор: Юра Леонтьев
  * Дата: 17.05.2014
  */
-=======
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.os.Build;
->>>>>>> origin/lex
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,14 +30,10 @@ public class QuestionsScreen extends ScreenInterface {
 	private Button btn;
 	private int choise;
 	
-<<<<<<< HEAD
 	private int number; 	// номер вопроса
 	private String result;	// номер ответа 
 	private int howBurgers;	// сколько бургеров подходит
-=======
-	private int number; 	// РЅРѕРјРµСЂ РІРѕРїСЂРѕСЃР°
-	private String result;	// РЅРѕРјРµСЂ РѕС‚РІРµС‚Р° 
->>>>>>> origin/lex
+	
 // *************************************************************
 	
 	public QuestionsScreen(Application application) {
@@ -181,7 +174,6 @@ public class QuestionsScreen extends ScreenInterface {
 			//burgers = file.read();
 			burgers =  "Р‘РёРі РјР°Рє!0!0!1!0!0!]Р‘РёРі С‚РµР№СЃС‚Рё!0!1!0!0!0!]";
 			
-<<<<<<< HEAD
 			int countBurger = 2; 		// здесь указываем сколько бургеров есть в базе.
 			int countIngredient = 6;	// здесь указываем сколько ингредиентов в строке + имя.
 			int countQuestions = 5;		// здесь указываем количество вопросов в опроснике.
@@ -189,32 +181,16 @@ public class QuestionsScreen extends ScreenInterface {
 			
 			String[] bur = new String[countBurger]; 
 			String[] ingr = new String[countIngredient]; // здесь указываем сколько ингредиентов в строке + имя.
-=======
-			int countBurger = 2; 		// Р·РґРµСЃСЊ СѓРєР°Р·С‹РІР°РµРј СЃРєРѕР»СЊРєРѕ Р±СѓСЂРіРµСЂРѕРІ РµСЃС‚СЊ РІ Р±Р°Р·Рµ.
-			int countIngridient = 6;	// Р·РґРµСЃСЊ СѓРєР°Р·С‹РІР°РµРј СЃРєРѕР»СЊРєРѕ РёРЅРіСЂРёРґРёРµРЅС‚РѕРІ РІ СЃС‚СЂРѕРєРµ + РёРјСЏ.
-			int countQuestions = 5;		// Р·РґРµСЃСЊ СѓРєР°Р·С‹РІР°РµРј РєРѕР»РёС‡РµСЃС‚РІРѕ РІРѕРїСЂРѕСЃРѕРІ РІ РѕРїСЂРѕСЃРЅРёРєРµ.
-			int numberOfMatches = 0;
-			
-			String[] bur = new String[countBurger]; 
-			String[] ingr = new String[countIngridient]; // Р·РґРµСЃСЊ СѓРєР°Р·С‹РІР°РµРј СЃРєРѕР»СЊРєРѕ РёРЅРіСЂРёРґРёРµРЅС‚РѕРІ РІ СЃС‚СЂРѕРєРµ + РёРјСЏ.
->>>>>>> origin/lex
 			String[] opros = new String[countQuestions];
 			
 			opros=result.split("!"); // РїР°СЂСЃРёРЅРі СЃС‚СЂРѕРєРё РѕС‚РІРµС‚РѕРІ (С‚Рѕ С‡С‚Рѕ РЅР°РѕС‚РІРµС‡Р°Р»Рё)
 			bur=burgers.split("]"); // РїР°СЂСЃРёРЅРі РІСЃРµС… Р±СѓСЂРіРµСЂРѕРІ (РІ bur Р±СѓРґСѓС‚ РІСЃРµ Р±СѓСЂРіРµСЂС‹ РІРёРґР°: Р…РёРі РјР°Рі!0!1!0!1!1!)
 			
-<<<<<<< HEAD
 			tvInfo.setText(""); // ПОТОМ УБРАТЬ!!!
 			for (int i=0;i<countBurger; i++, numberOfMatches = 0) {
 				ingr=bur[i].split("!"); // парсинг каждой исходной строки с бургером
 				String name = ingr[0];
-=======
-			tvInfo.setText(""); // РџРћРўРћРњ РЈР‘Р РђРўР¬!!!
-			for (int i=0;i<countBurger; i++, numberOfMatches=0){
-				ingr=bur[i].split("!"); // РїР°СЂСЃРёРЅРі РєР°Р¶РґРѕР№ РёСЃС…РѕРґРЅРѕР№ СЃС‚СЂРѕРєРё СЃ Р±СѓСЂРіРµСЂРѕРј
-							
-							
->>>>>>> origin/lex
+
 				for (int j=0;j<countQuestions;j++){
 					if (ingr[j+1].equals(opros[j])){
 						numberOfMatches++; // СЃС‡РµС‚С‡РёРє СЃРѕРІРїР°РґРµРЅРёР№ РѕС‚РІРµС‚РѕРІ Рё РёСЃС…РѕРґРЅРѕРіРѕ Р±СѓСЂРіРµСЂР°
@@ -226,17 +202,12 @@ public class QuestionsScreen extends ScreenInterface {
 				if (sovpadenie >= 50){
 					// РўРЈРў РќРђР”Рћ Р‘РЈР”Р•Рў РЎРћРҐР РђРќР�РўР¬ РќРђР—Р’РђРќР�Р• Р‘РЈР Р“Р•Р Рђ Р§РўРћР‘Р« РџРћРўРћРњ РџР•Р Р•Р”РђРўР¬ Р’ Р”Р РЈР“РЈР® Р¤РћР РњРЈ Р� Р’Р«Р’Р•РЎРўР� РЎРџР�РЎРћРљВ РџРћР”РҐРћР”РЇР©Р�РҐ Р‘РЈР Р“Р•Р РћР’!!!
 					String str = String.valueOf(sovp);
-<<<<<<< HEAD
+
 					//tvInfo.setText(tvInfo.getText() + "Вам подходит: "+ingr[0]+". Процент совпадений: " + str +"%.");
 					//tvInfo.setText(tvInfo.getText() + ingr[0]+"." + str +"%");
 					builder.append(name+"!"+Math.round(sovpadenie)+"!");
 					howBurgers++;
 					// если подходит, сохраняем имя и переходим к следующему
-=======
-					//tvInfo.setText(tvInfo.getText() + "Р’Р°Рј РїРѕРґС…РѕРґРёС‚: "+ingr[0]+". РџСЂРѕС†РµРЅС‚ СЃРѕРІРїР°РґРµРЅРёР№: " + str +"%.");
-					tvInfo.setText(tvInfo.getText() + ingr[0]+"." + str +"%");
-					// РµСЃР»Рё РїРѕРґС…РѕРґРёС‚, СЃРѕС…СЂР°РЅСЏРµРј РёРјСЏ Рё РїРµСЂРµС…РѕРґРёРј Рє СЃР»РµРґСѓСЋС‰РµРјСѓ
->>>>>>> origin/lex
 				}
 				else {
 					//String str = String.valueOf(sovp);
