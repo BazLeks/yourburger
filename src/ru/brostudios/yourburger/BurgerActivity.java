@@ -93,10 +93,10 @@ public class BurgerActivity extends Application {
 		Textures.ingredients = new Texture(this, "ingredients.png");
 		
 		// рестораны
-		Textures.kfc = new Texture(this, "kfc.png");
-		Textures.mcdonalds = new Texture(this, "mcdonalds.png");
-		Textures.carlsjr = new Texture(this, "carlsjr.png");
-		Textures.burgerking = new Texture(this, "burgerking.png");
-		Textures.subway = new Texture(this, "subway.png");
+		Textures.kfc = new Texture(this, "kfc/logo.png");
+		Textures.mcdonalds = new Texture(this, "mcdonalds/logo.png");
+		Textures.carlsjr = new Texture(this, "carlsjr/logo.png");
+		Textures.burgerking = new Texture(this, "burgerking/logo.png");
+		Textures.subway = new Texture(this, "subway/logo.png");
 	}
 }
