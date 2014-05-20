@@ -103,8 +103,13 @@ public class MainMenu extends ScreenInterface {
 			application.setScreen(new QuestionsScreen(application));
 		}
 		if(burger.getButton(Button_List).isTouchReleased()) {
+<<<<<<< HEAD
 			Log.d("yourburger", "Нажали на Button_List");
 			application.setScreen(new AllBurgers(application, "Биг мак!Биг тейсти!Чизбургер!Гамбургер"));
+=======
+			application.setScreen(new RestaurantInfo(application, "KFC"));
+			Log.d("update", "Нажали на Button_List");				
+>>>>>>> origin/lex
 		}
 		// нажатия на кнопки "выбор ресторана"
 		// обработка нажатий раскрывающихся кнопок
