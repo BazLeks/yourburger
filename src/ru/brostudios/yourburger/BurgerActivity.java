@@ -58,23 +58,23 @@ public class BurgerActivity extends Application {
 	@Override
 	public ScreenInterface getStartScreen() {
 		restaurants = new RestInfo[5];
-		restaurants[RestInfo.MCDONALDS] = new RestInfo("McDonald's", "mcdonalds/logo.png", "Описание макдака");
+		restaurants[RestInfo.MCDONALDS] = new RestInfo("McDonald's", "mcdonalds/logo.png", "McDonald’s Corporation  — американская корпорация, до 2010 года крупнейшая в мире сеть ресторанов быстрого питания. По итогам 2010 года компания занимает 2-е место по количеству ресторанов во всём мире после ресторанной сети Subway. Входит в список Fortune Global 500 2011 года (403-е место)");
 		restaurants[RestInfo.MCDONALDS].addBurger("Биг мак", "mcdonalds/bigmac.png", "Описание бигмака", "");
 		restaurants[RestInfo.MCDONALDS].addBurger("Биг тейсти", "mcdonalds/bigtasty.png", "Описание биг тейсти", "");
 		
-		restaurants[RestInfo.KFC] = new RestInfo("KFC", "kfc/logo.png", "Описание кфц");
+		restaurants[RestInfo.KFC] = new RestInfo("KFC", "kfc/logo.png", "KFC — американская сеть кафе общественного питания, специализирующихся на блюдах из курицы. Была основана в 1952 году Харландом Сандерсом под вывеской Kentuсky Fried Chicken (рус. Жареный цыпленок Кентукки).В 1991 бренд сократил название до KFC. С 1997 года сеть принадлежит крупной ресторанной компании Yum! Brands, владеющей также такими брендами, как Pizza Hut и Taco Bell. Сегодня сеть KFC представлена в 110 странах мира — это более 16 000 точек, в которых ежедневно обслуживаются около 12 000 000 клиентов. Главный офис находится в Луисвилле, штат Кентукки.");
 		restaurants[RestInfo.KFC].addBurger("Сандерс", "kfc/sanders.png", "Описание сандерс", "");
 		restaurants[RestInfo.KFC].addBurger("Зингер", "kfc/zinder.png", "Описание зингера", "");
 		
-		restaurants[RestInfo.BURGERKING] = new RestInfo("Burger King", "burgerking/logo.png", "Описание бургер кинга");
+		restaurants[RestInfo.BURGERKING] = new RestInfo("Burger King", "burgerking/logo.png", "Burger King Corporation — американская компания, владелец сети ресторанов быстрого питания Burger King. Штаб-квартира — в Майами, штат Флорида.");
 		restaurants[RestInfo.BURGERKING].addBurger("Воппер", "burgerking/wopper.png", "Описание воппера", "");
 		restaurants[RestInfo.BURGERKING].addBurger("Стейкхаус", "burgerking/steik.png", "Описание стейкхауса", "");
 		
-		restaurants[RestInfo.CARLSJR] = new RestInfo("Carl's Jr.", "carlsjr/logo.png", "Описание карс");
+		restaurants[RestInfo.CARLSJR] = new RestInfo("Carl's Jr.", "carlsjr/logo.png", "Carl’s Jr. — крупная сеть ресторанов быстрого обслуживания, представленная более чем 3100 точек в США, Эквадоре, Мексике, Сингапуре, Таиланде и России. Она была основана Карлом Карчером в 1941 году, теперь является дочерней сетью компании CKE Restaurants.");
 		restaurants[RestInfo.CARLSJR].addBurger("Гуакамоле", "carlsjr/guakamole.png", "Описание гуакамоле", "");
 		restaurants[RestInfo.CARLSJR].addBurger("Биг марбл", "carlsjr/bigmurble.png", "Описание биг марбл", "");
 		
-		restaurants[RestInfo.SUBWAY] = new RestInfo("SUBWAY", "subway/logo.png", "Описание сабвея");
+		restaurants[RestInfo.SUBWAY] = new RestInfo("SUBWAY", "subway/logo.png", "Subway (Са́бвэй) — сеть ресторанов быстрого питания, работающая по принципу франчайзинга. Крупнейшая по количеству точек предприятий общественного питания, на февраль 2011 года, сеть в мире. Основной продаваемой продукцией являются сэндвичи и салаты");
 		restaurants[RestInfo.SUBWAY].addBurger("Сабвей клаб", "subway/club.png", "Описание сабвей клаб", "");
 		restaurants[RestInfo.SUBWAY].addBurger("Тунец", "subway/tunets.png", "Описание тунец", "");
 		
