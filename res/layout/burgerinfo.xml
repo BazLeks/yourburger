@@ -1,70 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="317dp"
-        android:orientation="vertical" >
+    android:layout_height="match_parent"
+    android:layout_marginBottom="3dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginTop="3dp"
+    android:gravity="center_horizontal">
 	    
-	    <TextView
-	        android:id="@+id/restaurant_name"
-	        android:layout_width="161dp"
-	        android:layout_height="48dp"
-	        android:layout_x="25dp"
-	        android:layout_y="22dp"
-	        android:text="Имя бургера"
-	        android:textSize="20sp" />
-    	    
-    <View
-         android:layout_width="fill_parent"
-         android:layout_height="0.2dp"
-         android:id="@+id/separator1"
-         android:visibility="visible"
-                android:background="@android:color/darker_gray"/>
-
-    </LinearLayout>
-
+    <ImageView
+       android:id="@+id/burger_icon"
+       android:layout_width="50dp"
+       android:layout_height="50dp"
+       android:layout_margin="3dp"
+       android:maxHeight="40dp"
+       android:maxWidth="40dp"
+       android:src="@drawable/ic_launcher" />
+    
+    <TextView
+        android:id="@+id/burger_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/burger_icon"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/burger_icon"
+        android:hint="Ololo"
+        android:text=""
+        android:textSize="35sp" />
+    
     <RatingBar
         android:id="@+id/stars"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_x="41dp"
-        android:layout_y="94dp" />
-
+        android:layout_alignLeft="@+id/burger_icon"
+        android:layout_below="@+id/burger_icon"
+        android:layout_marginTop="14dp" />
+    
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="259dp"
-        android:layout_height="103dp"
-        android:layout_x="26dp"
-        android:layout_y="165dp"
-        android:scrollbars="vertical"
-        android:text="Описание бургера" />
-
-    <TextView
-        android:id="@+id/TextView01"
-        android:layout_width="259dp"
-        android:layout_height="88dp"
-        android:layout_x="25dp"
-        android:layout_y="299dp"
-        android:scrollbars="vertical"
-        android:text="Комментарии" />
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_x="9dp"
-        android:layout_y="407dp"
-        android:text="Найти бургер" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/stars"
+        android:layout_marginBottom="3dp"
+        android:layout_marginTop="15dp"
+        android:text="Описание:"
+        android:textSize="25sp" />
+	
+	<TextView
+	    android:id="@+id/textView2"
+	    android:layout_width="259dp"
+	    android:layout_height="103dp"
+	    android:layout_above="@+id/button1"
+	    android:layout_alignParentLeft="true"
+	    android:layout_alignParentRight="true"
+	    android:layout_below="@+id/textView1"
+	    android:scrollbars="vertical"
+	    android:text="Описание бургера" />
 
-    <Button
-        android:id="@+id/Button01"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_x="148dp"
-        android:layout_y="408dp"
-        android:text="В главное меню" />
+	<Button
+	    android:id="@+id/button1"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_above="@+id/button2"
+	    android:layout_alignParentLeft="true"
+	    android:layout_alignParentRight="true"
+	    android:text="Ресторан" />
+	
+	<Button
+	    android:id="@+id/button2"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignLeft="@+id/button1"
+	    android:layout_alignParentBottom="true"
+	    android:layout_alignParentRight="true"
+	    android:text="В главное меню" />
 
-</AbsoluteLayout>
+</RelativeLayout>
