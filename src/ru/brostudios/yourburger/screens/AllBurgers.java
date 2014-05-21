@@ -5,6 +5,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.LinearLayout.LayoutParams;
 import ru.brostudios.framework.Application;
@@ -76,9 +77,8 @@ public class AllBurgers extends ScreenInterface {
 	
 // **************************************************
 	
-	public AllBurgers(Application application, String burgers) {
+	public AllBurgers(Application application) {
 		super(application);
-		this.burgers = burgers.split("!");
 	}
 
 	@Override
@@ -98,7 +98,9 @@ public class AllBurgers extends ScreenInterface {
 
 	@Override
 	public void resume() {
+		ScrollView view = new ScrollView(application);
 		LinearLayout layout = new LinearLayout(application);
+		layout.setVerticalScrollBarEnabled(true);
 		layout.setOrientation(LinearLayout.VERTICAL);
 		RestInfo[] rests = BurgerActivity.restaurants;
 		for(int i=0;i<rests.length;i++) {
@@ -108,7 +110,9 @@ public class AllBurgers extends ScreenInterface {
 			}			
 		}
 		
-		application.setContentView(layout);
+		view.addView(layout);
+		
+		application.setContentView(view);
 	}
 
 	@Override
