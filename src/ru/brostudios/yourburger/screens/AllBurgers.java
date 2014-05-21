@@ -65,7 +65,7 @@ public class AllBurgers extends ScreenInterface {
 			// обработчик вызывает окно и передаёт ему название бургера
 			button.setOnClickListener(new OnClickListener() {
 				@Override
-				public void onClick(View v) { application.setScreen(new BurgerInfo(application)); }
+				public void onClick(View v) { application.setScreen(new InfoBurger(application, ((BurgerActivity)application).restaurants[0].burgersInfo.get(0))); }
 			});
 			
 			
