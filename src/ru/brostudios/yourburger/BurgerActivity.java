@@ -25,12 +25,14 @@ public class BurgerActivity extends Application {
 			public String picturePath;
 			public String description;
 			public String string;			// ДЛЯ МАТЬ ЕГО ЮРЫ
+			public RestInfo parent;
 			
-			BurgerInfo(String name, String picturePath, String description, String string) {
+			BurgerInfo(String name, String picturePath, String description, String string, RestInfo parent) {
 				this.name = name;
 				this.picturePath = picturePath;
 				this.description = description;
 				this.string = string;
+				this.parent = parent;
 			}
 		}
 		
@@ -47,7 +49,7 @@ public class BurgerActivity extends Application {
 		}
 		
 		public void addBurger(String name, String picturePath, String description, String string) {
-			burgersInfo.add(new BurgerInfo(name, picturePath, description, string));
+			burgersInfo.add(new BurgerInfo(name, picturePath, description, string, this));
 		}
 	}
 	
