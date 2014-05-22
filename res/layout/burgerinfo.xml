@@ -50,6 +50,7 @@
 	    android:layout_alignParentRight="true"
 	    android:layout_below="@+id/textView1"
 	    android:scrollbars="vertical"
+        android:gravity=""
 	    android:text="Описание бургера" />
 
 	<Button

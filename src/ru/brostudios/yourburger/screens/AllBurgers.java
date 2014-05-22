@@ -1,5 +1,7 @@
 package ru.brostudios.yourburger.screens;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -11,6 +13,8 @@ import android.widget.LinearLayout.LayoutParams;
 import ru.brostudios.framework.Application;
 import ru.brostudios.framework.interfaces.ScreenInterface;
 import ru.brostudios.yourburger.BurgerActivity;
+import ru.brostudios.yourburger.BurgerActivity.RestInfo.BurgerInfo;
+import ru.brostudios.yourburger.File;
 import ru.brostudios.yourburger.R;
 import ru.brostudios.yourburger.BurgerActivity.RestInfo;
 
@@ -26,7 +30,7 @@ public class AllBurgers extends ScreenInterface {
 		
 	// ************************************************************************
 		
-		public BurgerItem(final Application application, String name) {
+		public BurgerItem(final Application application, final BurgerInfo burger) {
 			super(application);	
 			
 			// параметры всего слоя
@@ -38,7 +42,8 @@ public class AllBurgers extends ScreenInterface {
 			
 			// картинка бургера
 			iView = new ImageView(application);
-			iView.setImageResource(R.drawable.ic_launcher);
+			Bitmap bitmap = BitmapFactory.decodeStream(File.LoadFileFromAsset(application.getAssets(), burger.picturePath));
+			iView.setImageBitmap(bitmap);
 			// параметры слоя картинки
 			LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(
 					LinearLayout.LayoutParams.MATCH_PARENT,
@@ -48,7 +53,7 @@ public class AllBurgers extends ScreenInterface {
 			// поле названия бургера
 			tView = new TextView(application);
 			tView.setTextSize(24);
-			tView.setText(name);
+			tView.setText(burger.name);
 			LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(
 				LinearLayout.LayoutParams.MATCH_PARENT,
 				LinearLayout.LayoutParams.MATCH_PARENT);
@@ -65,7 +70,7 @@ public class AllBurgers extends ScreenInterface {
 			// обработчик вызывает окно и передаёт ему название бургера
 			button.setOnClickListener(new OnClickListener() {
 				@Override
-				public void onClick(View v) { application.setScreen(new InfoBurger(application, ((BurgerActivity)application).restaurants[0].burgersInfo.get(0))); }
+				public void onClick(View v) { application.setScreen(new InfoBurger(application, burger)); }
 			});
 			
 			
@@ -105,7 +110,7 @@ public class AllBurgers extends ScreenInterface {
 		RestInfo[] rests = BurgerActivity.restaurants;
 		for(int i=0;i<rests.length;i++) {
 			for(int j=0;j<rests[i].burgersInfo.size();j++) {
-				BurgerItem item = new BurgerItem(application, rests[i].burgersInfo.get(j).name);
+				BurgerItem item = new BurgerItem(application, rests[i].burgersInfo.get(j));
 				layout.addView(item);
 			}			
 		}
