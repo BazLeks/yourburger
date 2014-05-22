@@ -1,26 +1,22 @@
 package ru.brostudios.yourburger.screens;
 
-import android.graphics.Bitmap;
+import ru.brostudios.yourburger.BurgerActivity.RestInfo.BurgerInfo;
+import ru.brostudios.framework.interfaces.ScreenInterface;
+import ru.brostudios.yourburger.BurgerActivity.RestInfo;
+import ru.brostudios.yourburger.BurgerActivity;
+import ru.brostudios.framework.Application;
 import android.graphics.BitmapFactory;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
+import ru.brostudios.yourburger.File;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.LinearLayout.LayoutParams;
-import ru.brostudios.framework.Application;
-import ru.brostudios.framework.interfaces.ScreenInterface;
-import ru.brostudios.yourburger.BurgerActivity;
-import ru.brostudios.yourburger.BurgerActivity.RestInfo.BurgerInfo;
-import ru.brostudios.yourburger.File;
-import ru.brostudios.yourburger.R;
-import ru.brostudios.yourburger.BurgerActivity.RestInfo;
+import android.graphics.Bitmap;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.view.View;
 
 public class AllBurgers extends ScreenInterface {
-
-	private String[] burgers;
 	
 	public class BurgerItem extends LinearLayout {
 		
@@ -103,21 +99,24 @@ public class AllBurgers extends ScreenInterface {
 
 	@Override
 	public void resume() {
-		ScrollView view = new ScrollView(application);
-		LinearLayout layout = new LinearLayout(application);
+		
+		ScrollView scrollView = new ScrollView(application); // скролл слоя
+		
+		// вертикальный слой, на кот. добавляем горизонтальные
+		LinearLayout layout = new LinearLayout(application); 
 		layout.setVerticalScrollBarEnabled(true);
 		layout.setOrientation(LinearLayout.VERTICAL);
-		RestInfo[] rests = BurgerActivity.restaurants;
-		for(int i=0;i<rests.length;i++) {
-			for(int j=0;j<rests[i].burgersInfo.size();j++) {
-				BurgerItem item = new BurgerItem(application, rests[i].burgersInfo.get(j));
+		
+		RestInfo[] restaurants = BurgerActivity.restaurants;
+		for(int i=0;i<restaurants.length;i++) {
+			for(int j=0;j<restaurants[i].burgersInfo.size();j++) {
+				BurgerItem item = new BurgerItem(application, restaurants[i].burgersInfo.get(j));
 				layout.addView(item);
 			}			
 		}
 		
-		view.addView(layout);
-		
-		application.setContentView(view);
+		scrollView.addView(layout);
+		application.setContentView(scrollView);
 	}
 
 	@Override

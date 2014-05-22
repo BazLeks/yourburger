@@ -1,24 +1,23 @@
 package ru.brostudios.yourburger.screens;
 
-import java.util.Hashtable;
-import java.util.List;
-
-import android.view.Gravity;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import ru.brostudios.framework.Application;
+import ru.brostudios.yourburger.BurgerActivity.RestInfo.BurgerInfo;
 import ru.brostudios.framework.interfaces.ScreenInterface;
 import ru.brostudios.yourburger.BurgerActivity;
-import ru.brostudios.yourburger.BurgerActivity.RestInfo.BurgerInfo;
+import ru.brostudios.framework.Application;
+import android.widget.LinearLayout;
 import ru.brostudios.yourburger.R;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.view.ViewGroup;
+import java.util.Enumeration;
+import android.widget.Button;
+import android.view.Gravity;
+import java.util.Hashtable;
+import android.view.View;
 
 public class CompBurgers extends ScreenInterface {
 	
-	private String[] burgers;
+	private Hashtable<BurgerInfo, String> compatibles;
 	
 	// -------------------------------------------------------
 	
@@ -96,6 +95,8 @@ public class CompBurgers extends ScreenInterface {
 	
 	public CompBurgers(Application application, Hashtable<BurgerInfo, String> compatibles) {
 		super(application);
+		this.compatibles = new Hashtable<BurgerInfo, String>();
+		this.compatibles.put(BurgerActivity.restaurants[0].burgersInfo.get(0), "80");
 	}
 
 	@Override
@@ -118,22 +119,24 @@ public class CompBurgers extends ScreenInterface {
 		
 		LinearLayout layout = new LinearLayout(application);
 		layout.setOrientation(LinearLayout.VERTICAL);
-		if(burgers == null) {
+		if(compatibles.size()==0) {
 			TextView view = new TextView(application);
-			view.setText("К сожалению, под ваш запрос ничего не найдено. " +
-					"Попробуйте пройти тест заново");
+			view.setText("К сожалению, под ваш запрос ничего не найдено. Попробуйте пройти тест заново");
 			view.setTextSize(20);
+			
 			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
 					LinearLayout.LayoutParams.WRAP_CONTENT,
 					LinearLayout.LayoutParams.WRAP_CONTENT);
+			
 			params.gravity = Gravity.CENTER;
 			layout.setLayoutParams(params);
-			layout.addView(view);
-		}
-		else {
-			for(int i=0;i<burgers.length;i+=2) {
-//				BurgerItem item = new BurgerItem(application);
-//				layout.addView(item);
+			layout.addView(view);			
+		} else {
+			Enumeration<BurgerInfo> keys = compatibles.keys();
+			while(keys.hasMoreElements()) {
+				BurgerInfo info = keys.nextElement();
+				BurgerItem item = new BurgerItem(application, info, compatibles.get(info));
+				layout.addView(item);
 			}
 		}
 		application.setContentView(layout);

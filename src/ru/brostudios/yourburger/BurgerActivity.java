@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import ru.brostudios.framework.Application;
 import ru.brostudios.framework.game.Texture;
+import ru.brostudios.yourburger.screens.CompBurgers;
 import ru.brostudios.yourburger.screens.MainMenu;
 import ru.brostudios.framework.interfaces.ScreenInterface;
 
@@ -50,8 +51,6 @@ public class BurgerActivity extends Application {
 		public void addBurger(String name, String picturePath, String description, String string) {
 			burgersInfo.add(new BurgerInfo(name, picturePath, description, string, this));
 		}
-		
-		
 	}
 	
 	@Override
@@ -116,7 +115,7 @@ public class BurgerActivity extends Application {
 				"вы будете выбирать его снова и снова.", 
 				"Тунец!2!0!0!0!0!0!0!0]");
 		
-		return new MainMenu(this);
+		return new CompBurgers(this, null);
 	}
 
 	@Override

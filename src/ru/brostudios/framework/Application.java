@@ -5,7 +5,8 @@ import java.util.Stack;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import com.google.android.maps.MapView;
+import com.google.android.gms.maps.MapView;
+
 
 import ru.brostudios.framework.interfaces.FrameworkInterface;
 import ru.brostudios.framework.interfaces.ScreenInterface;
@@ -32,14 +33,13 @@ public abstract class Application extends Activity implements FrameworkInterface
 	public void onBackPressed() {
 		Log.d("yourburger", "Нажата кнопка назад");
 		try {
+			if(currentScreen==null) super.onBackPressed();
 			currentScreen.pause();
 			currentScreen = screens.pop();
-			if(currentScreen==null) super.onBackPressed();
 			currentScreen.resume();
 		} catch(Exception e) {
-			Toast toast = Toast.makeText(this, e.getCause()+"", Toast.LENGTH_SHORT);
+			Toast toast = Toast.makeText(this, e.getMessage()+": "+e.getCause(), Toast.LENGTH_SHORT);
 			toast.show();
-			super.onBackPressed();
 		}
 	}
 	
@@ -113,8 +113,8 @@ public abstract class Application extends Activity implements FrameworkInterface
 	}
 	
 	public void setScreen(final ScreenInterface currentScreen) {
-		this.runOnUiThread(new Runnable() {
-			
+		
+		this.runOnUiThread(new Runnable() {	
 			@Override
 			public void run() {
 				synchronized (this) {
@@ -132,13 +132,8 @@ public abstract class Application extends Activity implements FrameworkInterface
 	}
 	
 
-	public Graphics getGraphics() {
-		return graphics;
-	}
-	
-	public Input getInput() {
-		return input;
-	}
+	public final Graphics getGraphics() { return graphics; }
+	public final Input getInput() { return input; }
 
 	@Override
 	public void onDrawFrame(GL10 gl) {
