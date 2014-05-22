@@ -2,7 +2,9 @@ package ru.brostudios.framework;
 import java.util.Stack;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
-import com.google.android.maps.MapView;
+
+import com.google.android.gms.maps.MapView;
+
 import ru.brostudios.framework.interfaces.FrameworkInterface;
 import ru.brostudios.framework.interfaces.ScreenInterface;
 import android.app.Activity;
