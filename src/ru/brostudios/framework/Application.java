@@ -4,11 +4,6 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 import com.google.android.gms.maps.MapView;
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
-
 import ru.brostudios.framework.interfaces.FrameworkInterface;
 import ru.brostudios.framework.interfaces.ScreenInterface;
 import android.app.Activity;
