@@ -34,10 +34,12 @@ public class QuestionsScreen extends ScreenInterface {
 	//private OnClickListener radioListener;
 	private Button btn;
 	private int choise;
-	
+	private boolean choice; // выбрана ли радиобатон
 	private int number; 	// номер вопроса
 	private String result;	// номер ответа 
 	private int howBurgers;	// сколько бургеров подходит
+	
+	RestInfo[] restoran;
 	
 	private Hashtable<BurgerInfo, String> compatibles;	// хэш-таблица подходящих бургеров
 	
@@ -63,6 +65,7 @@ public class QuestionsScreen extends ScreenInterface {
 	public void resume() {
 		number = 1;	// номер вопроса в опроснике
 		result = ""; // строка ответа в опроснике
+		choice = false;
 		
 		application.setContentView(R.layout.questions_screen);
 		
@@ -85,39 +88,54 @@ public class QuestionsScreen extends ScreenInterface {
 				switch (checkedId) {
 				case R.id.radio0:
 					choise = 0;
+					choice = true;
 					break;
 				case R.id.radio1:
 					choise = 1;
+					choice = true;
 					break;
 				case R.id.radio2:
 					choise = 2;
+					choice = true;
 					break;
 				case R.id.radio3:
 					choise = 3;
+					choice = true;
+					break;
+				default:
+					if (number == 9)
+						choice = true;
+					else 
+						choice = false;
 					break;
 				}
+				
+					
 			}
 		});
 				
 		btn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if(number>=1 && number<=8) result += String.valueOf(choise)+ "!";
-				number++;
-				quest(number);
-				if(number == 10) {
-					QuestionsScreen.this.process();
-					// отрезаем последний символ в строке
-					String burgers = null;
-					Log.d("yourburger", "builder: "+builder+" size: "+builder.length());
-					if(builder!=null && builder.length()!=0) {
-						burgers = builder.substring(0, builder.length()-1);
-					}	
-					application.setScreen(new CompBurgers(application, compatibles));
-					compatibles.clear();
-					// очищаем переменные результата для нового опроса
-					howBurgers = 0;
-					builder.setLength(0);
+				if (choice){
+					if(number>=1 && number<=8) result += String.valueOf(choise)+ "!";
+					number++;
+					quest(number);
+					radiogroup.clearCheck();
+					if(number == 10) {
+						QuestionsScreen.this.process();
+						// отрезаем последний символ в строке
+						String burgers = null;
+						Log.d("yourburger", "builder: "+builder+" size: "+builder.length());
+						if(builder!=null && builder.length()!=0) {
+							burgers = builder.substring(0, builder.length()-1);
+						}	
+						application.setScreen(new CompBurgers(application, compatibles));
+						compatibles.clear();
+						// очищаем переменные результата для нового опроса
+						howBurgers = 0;
+						builder.setLength(0);
+					}
 				}
 			}
 		});
@@ -194,7 +212,7 @@ public class QuestionsScreen extends ScreenInterface {
 
 		//	burgers =  "Биг мак!0!0!1!0!0!]Биг тейсти!0!1!0!0!0!]";
 // !!! ПИЗДА, ЛУЧШЕ НЕ СМОТРЕТЬ!!!!			
-		RestInfo[] restoran = ((BurgerActivity)application).restaurants;
+		restoran = ((BurgerActivity)application).restaurants;
 		
 		int countburger = 0;
 		int countBurger = 0; 		// здесь указываем сколько бургеров есть в базе.
@@ -264,27 +282,64 @@ public class QuestionsScreen extends ScreenInterface {
 				float sovpadenie =  ((float)numberOfMatches/(float)countQuestions)*100f;
 				int sovp = (int) sovpadenie;
 				if (sovpadenie >= 50){
+					this.poisk(name, sovp);
 					// ТУТ НАДО БУДЕТ СОХРАНИТЬ НАЗВАНИЕ БУРГЕРА ЧТОБЫ ПОТОМ ПЕРЕДАТЬ В ДРУГУЮ ФОРМУ И ВЫВЕСТИ СПИСОК ПОДХОДЯЩИХ БУРГЕРОВ!!!
-					String str = String.valueOf(sovp);
-
 					//tvInfo.setText(tvInfo.getText() + "Вам подходит: "+ingr[0]+". Процент совпадений: " + str +"%.");
 					//tvInfo.setText(tvInfo.getText() + ingr[0]+"." + str +"%");
 					builder.append(name+"!"+Math.round(sovpadenie)+"!");
 					howBurgers++;
 					// если подходит, сохраняем имя и переходим к следующему
 				}
-				else {
-					//String str = String.valueOf(sovp);
-					//tvInfo.setText(tvInfo.getText() + "Р’Р°Рј РЅРµ РїРѕРґС…РѕРґРёС‚: "+ingr[0]+". РџСЂРѕС†РµРЅС‚ СЃРѕРІРїР°РґРµРЅРёР№: " + str +"%.");
-				}
 			}
-	//	}
-		//else
-		//	burgers="222";
-		//tvInfo.setText(burgers);
+
 	}
 
-
+// ищет нужный бургер и добавляет в хештайбл
+	public void poisk(String name, int sovp){
+		int countSize = 0;
+		int countItog = 0;
+		
+		countSize = restoran[RestInfo.MCDONALDS].burgersInfo.size();
+		countItog += countSize;
+		for(int i=0;i<countSize;i++){
+			if (name.equals(restoran[RestInfo.MCDONALDS].burgersInfo.get(i).string)) {
+				compatibles.put(restoran[RestInfo.MCDONALDS].burgersInfo.get(i), String.valueOf(sovp));
+			}
+		}
+		
+		
+		countSize = restoran[RestInfo.KFC].burgersInfo.size();
+		countItog += countSize;
+		for(int i=0;i<countSize;i++){
+			if (name.equals(restoran[RestInfo.KFC].burgersInfo.get(i).string)) {
+				compatibles.put(restoran[RestInfo.KFC].burgersInfo.get(i), String.valueOf(sovp));
+			}
+		}
+		
+		countSize = restoran[RestInfo.BURGERKING].burgersInfo.size();
+		countItog += countSize;
+		for(int i=0;i<countSize;i++){
+			if (name.equals(restoran[RestInfo.BURGERKING].burgersInfo.get(i).string)) {
+				compatibles.put(restoran[RestInfo.BURGERKING].burgersInfo.get(i), String.valueOf(sovp));
+			}
+		}
+		
+		countSize = restoran[RestInfo.CARLSJR].burgersInfo.size();
+		countItog += countSize;
+		for(int i=0;i<countSize;i++){
+			if (name.equals(restoran[RestInfo.CARLSJR].burgersInfo.get(i).string)) {
+				compatibles.put(restoran[RestInfo.CARLSJR].burgersInfo.get(i), String.valueOf(sovp));
+			}
+		}
+				
+		countSize = restoran[RestInfo.SUBWAY].burgersInfo.size();
+		countItog += countSize;
+		for(int i=0;i<countSize;i++){
+			if (name.equals(restoran[RestInfo.SUBWAY].burgersInfo.get(i).string)) {
+				compatibles.put(restoran[RestInfo.MCDONALDS].burgersInfo.get(i), String.valueOf(sovp));
+			}
+		}
+	}
 	
 }
 
