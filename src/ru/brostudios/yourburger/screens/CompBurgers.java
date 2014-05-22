@@ -4,9 +4,12 @@ import ru.brostudios.yourburger.BurgerActivity.RestInfo.BurgerInfo;
 import ru.brostudios.framework.interfaces.ScreenInterface;
 import ru.brostudios.framework.Application;
 import android.widget.LinearLayout;
+import ru.brostudios.yourburger.File;
 import ru.brostudios.yourburger.R;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.ViewGroup;
 import java.util.Enumeration;
 import android.widget.Button;
@@ -41,7 +44,8 @@ public class CompBurgers extends ScreenInterface {
 			
 			// картинка бургера
 			iView = new ImageView(application);
-			iView.setImageResource(R.drawable.ic_launcher);
+			Bitmap bitmap = BitmapFactory.decodeStream(File.LoadFileFromAsset(application.getAssets(), burger.picturePath));
+			iView.setImageBitmap(bitmap);
 			// параметры слоя картинки
 			LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(
 					LinearLayout.LayoutParams.MATCH_PARENT,
