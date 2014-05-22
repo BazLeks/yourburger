@@ -1,9 +1,12 @@
 package ru.brostudios.framework;
 
 import java.util.Stack;
+
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
-import com.google.android.gms.maps.MapView;
+
+import com.google.android.maps.MapView;
+
 import ru.brostudios.framework.interfaces.FrameworkInterface;
 import ru.brostudios.framework.interfaces.ScreenInterface;
 import android.app.Activity;
@@ -65,8 +68,8 @@ public abstract class Application extends Activity implements FrameworkInterface
 		//getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLcurrentScreen, WindowManager.LayoutParams.FLAG_FULLcurrentScreen);
 		//getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
 		
-		mapView = new MapView(this);
-		mapView.onCreate(savedInstanceState);
+	//	mapView = new MapView(this);
+	//	mapView.onCreate(savedInstanceState);
 		glView = new GLSurfaceView(this);
 		glView.setRenderer(this);
 		glView.setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);

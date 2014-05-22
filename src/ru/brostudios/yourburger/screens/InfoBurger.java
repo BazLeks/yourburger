@@ -5,17 +5,26 @@ package ru.brostudios.yourburger.screens;
  */
 
 import android.app.backup.RestoreObserver;
+<<<<<<< HEAD
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+=======
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+>>>>>>> origin/Yura-Too-Veka-poslednaya
 import android.widget.TextView;
 import ru.brostudios.framework.Application;
 import ru.brostudios.framework.interfaces.ScreenInterface;
 import ru.brostudios.yourburger.BurgerActivity.RestInfo.BurgerInfo;
+<<<<<<< HEAD
 import ru.brostudios.yourburger.File;
+=======
+>>>>>>> origin/Yura-Too-Veka-poslednaya
 import ru.brostudios.yourburger.R;
 
 public class InfoBurger extends ScreenInterface {
@@ -46,6 +55,7 @@ public class InfoBurger extends ScreenInterface {
 	public void resume() {	
 		application.setContentView(R.layout.burgerinfo);
 		
+<<<<<<< HEAD
 		ImageView burgericon = (ImageView) application.findViewById(R.id.burger_icon);
 		Bitmap bitmap = BitmapFactory.decodeStream(File.LoadFileFromAsset(application.getAssets(), burgerinfo.picturePath));
 		burgericon.setImageBitmap(bitmap);
@@ -55,6 +65,10 @@ public class InfoBurger extends ScreenInterface {
 		
 		TextView description = (TextView) application.findViewById(R.id.textView2);
 		description.setText(burgerinfo.description);
+=======
+		TextView burgername = (TextView) application.findViewById(R.id.burger_name);
+		//burgername.setText(text);
+>>>>>>> origin/Yura-Too-Veka-poslednaya
 		
 		Button button1 = (Button) application.findViewById(R.id.button1);
 		button1.setOnClickListener(new OnClickListener() {

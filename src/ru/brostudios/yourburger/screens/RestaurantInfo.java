@@ -39,7 +39,7 @@ public class RestaurantInfo extends ScreenInterface {
 		OnClickListener listenerShowOnMap = new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				application.setScreen(new RestMap(application));
+				//application.setScreen(new RestMap(application));
 			}
 		};
 		Button button = (Button)application.findViewById(R.id.restaurant_showinmap);

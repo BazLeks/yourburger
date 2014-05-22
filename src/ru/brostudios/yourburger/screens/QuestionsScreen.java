@@ -16,6 +16,8 @@ import android.widget.TextView;
 import ru.brostudios.framework.Application;
 import ru.brostudios.framework.File;
 import ru.brostudios.framework.interfaces.ScreenInterface;
+import ru.brostudios.yourburger.BurgerActivity.*;
+import ru.brostudios.yourburger.BurgerActivity;
 import ru.brostudios.yourburger.R;
 
 
@@ -53,14 +55,14 @@ public class QuestionsScreen extends ScreenInterface {
 
 	@Override
 	public void resume() {
-		number = 1;	// РЅРѕРјРµСЂ РІРѕРїСЂРѕСЃР° РІ РѕРїСЂРѕСЃРЅРёРєРµ
-		result = ""; // СЃС‚СЂРѕРєР° РѕС‚РІРµС‚Р° РІ РѕРїСЂРѕСЃРЅРёРєРµ
+		number = 1;	// номер вопроса в опроснике
+		result = ""; // строка ответа в опроснике
 		
 		application.setContentView(R.layout.questions_screen);
 		
 		btn = (Button)application.findViewById(R.id.button1);
 		radiogroup = (RadioGroup)application.findViewById(R.id.radioGroup2);
-		// radiogroup.clearCheck();
+	    radiogroup.clearCheck();
 		
 		tvInfo = (TextView)application.findViewById(R.id.restaurant_name);	
 		choise0 = (TextView)application.findViewById(R.id.radio0);
@@ -94,10 +96,10 @@ public class QuestionsScreen extends ScreenInterface {
 		btn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if(number>=1 && number<=5) result += String.valueOf(choise)+ "!";
+				if(number>=1 && number<=8) result += String.valueOf(choise)+ "!";
 				number++;
 				quest(number);
-				if(number == 7) {
+				if(number == 10) {
 					QuestionsScreen.this.process();
 					// отрезаем последний символ в строке
 					String burgers = null;
@@ -154,9 +156,24 @@ public class QuestionsScreen extends ScreenInterface {
 				choise0.setText(R.string.questionChoise5_0);
 				choise1.setText(R.string.questionChoise5_1);
 				break;
+		    case 6:
+				tvInfo.setText(R.string.questionName6);
+				choise0.setText(R.string.questionChoise6_0);
+				choise1.setText(R.string.questionChoise6_1);
+				break;
+		    case 7:
+				tvInfo.setText(R.string.questionName7);
+				choise0.setText(R.string.questionChoise7_0);
+				choise1.setText(R.string.questionChoise7_1);
+				break;
+		    case 8:
+				tvInfo.setText(R.string.questionName8);
+				choise0.setText(R.string.questionChoise8_0);
+				choise1.setText(R.string.questionChoise8_1);
+				break;				
 		    default:
-		    	tvInfo.setText("РЎРїР°СЃРёР±Рѕ Р·Р° РѕС‚РІРµС‚С‹! РњС‹ СѓС‡Р»Рё РІР°С€Рё РїРѕР¶РµР»Р°РЅРёСЏ!");
-		    	buttonText.setText("РџРѕСЃРјРѕС‚СЂРµС‚СЊ");
+		    	tvInfo.setText("Спасибо за ответы! Мы учли ваши пожелания!");
+		    	buttonText.setText("Посмотреть");
 		    //	tvInfo.setVisibility(android.view.View.INVISIBLE);
 				choise0.setVisibility(android.view.View.INVISIBLE);
 				choise1.setVisibility(android.view.View.INVISIBLE);
@@ -166,24 +183,64 @@ public class QuestionsScreen extends ScreenInterface {
 	}
 	
 	public void process(){
-		
-		File file = new File();
 		String burgers="";
-		//boolean openFile = file.open("burger");
-		//if(openFile){
-			//burgers = file.read();
-			burgers =  "Р‘РёРі РјР°Рє!0!0!1!0!0!]Р‘РёРі С‚РµР№СЃС‚Рё!0!1!0!0!0!]";
+
+		//	burgers =  "Биг мак!0!0!1!0!0!]Биг тейсти!0!1!0!0!0!]";
+// !!! ПИЗДА, ЛУЧШЕ НЕ СМОТРЕТЬ!!!!			
+		RestInfo[] restoran = ((BurgerActivity)application).restaurants;
+		
+		int countburger = 0;
+		int countBurger = 0; 		// здесь указываем сколько бургеров есть в базе.
+		
+		countburger = restoran[RestInfo.MCDONALDS].burgersInfo.size();
+		countBurger += countburger;
+		for(int i=0;i<countburger;i++){
+			burgers += restoran[RestInfo.MCDONALDS].burgersInfo.get(i).string;
+		}
+		
+		countburger = 0;
+		
+		countburger = restoran[RestInfo.KFC].burgersInfo.size();
+		countBurger += countburger;
+		for(int i=0;i<countburger;i++){
+			burgers += restoran[RestInfo.KFC].burgersInfo.get(i).string;
+		}			
+
+		countburger = 0;
+		
+		
+		countburger = restoran[RestInfo.BURGERKING].burgersInfo.size();
+		countBurger += countburger;
+		for(int i=0;i<countburger;i++){
+			burgers += restoran[RestInfo.BURGERKING].burgersInfo.get(i).string;
+		}
+
+		countburger = 0;
+		
+		countburger = restoran[RestInfo.CARLSJR].burgersInfo.size();
+		countBurger += countburger;
+		for(int i=0;i<countburger;i++){
+			burgers += restoran[RestInfo.CARLSJR].burgersInfo.get(i).string;
+		}
+		
+		countburger = 0;
+		countburger = restoran[RestInfo.SUBWAY].burgersInfo.size();
+		countBurger += countburger;
+		for(int i=0;i<countburger;i++){
+			burgers += restoran[RestInfo.SUBWAY].burgersInfo.get(i).string;
+		}
 			
-			int countBurger = 2; 		// здесь указываем сколько бургеров есть в базе.
-			int countIngredient = 6;	// здесь указываем сколько ингредиентов в строке + имя.
-			int countQuestions = 5;		// здесь указываем количество вопросов в опроснике.
+// !!!!!!!	 ДАЛЬШЕ МОЖНО СМОТРЕТЬ			
+		
+			int countIngredient = 9;	// здесь указываем сколько ингредиентов в строке + имя.
+			int countQuestions = 8;		// здесь указываем количество вопросов в опроснике.
 			int numberOfMatches = 0;
 			
 			String[] bur = new String[countBurger]; 
 			String[] ingr = new String[countIngredient]; // здесь указываем сколько ингредиентов в строке + имя.
 			String[] opros = new String[countQuestions];
 			
-			opros=result.split("!"); // РїР°СЂСЃРёРЅРі СЃС‚СЂРѕРєРё РѕС‚РІРµС‚РѕРІ (С‚Рѕ С‡С‚Рѕ РЅР°РѕС‚РІРµС‡Р°Р»Рё)
+			opros=result.split("!"); //парсинг строки ответов (то что наотвечали)
 			bur=burgers.split("]"); // РїР°СЂСЃРёРЅРі РІСЃРµС… Р±СѓСЂРіРµСЂРѕРІ (РІ bur Р±СѓРґСѓС‚ РІСЃРµ Р±СѓСЂРіРµСЂС‹ РІРёРґР°: Р…РёРі РјР°Рі!0!1!0!1!1!)
 			
 			tvInfo.setText(""); // ПОТОМ УБРАТЬ!!!

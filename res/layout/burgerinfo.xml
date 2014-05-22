@@ -20,6 +20,7 @@
     
     <TextView
         android:id="@+id/burger_name"
+<<<<<<< HEAD
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/burger_icon"
@@ -28,6 +29,24 @@
         android:hint="Ololo"
         android:text=""
         android:textSize="35sp" />
+=======
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/burger_icon"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/burger_icon"
+        android:hint="Ololo"
+        android:text=""
+        android:textSize="35sp" />
+    
+    <RatingBar
+        android:id="@+id/stars"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/burger_icon"
+        android:layout_below="@+id/burger_icon"
+        android:layout_marginTop="14dp" />
+>>>>>>> origin/Yura-Too-Veka-poslednaya
     
     <TextView
         android:id="@+id/textView1"
@@ -50,7 +69,10 @@
 	    android:layout_alignParentRight="true"
 	    android:layout_below="@+id/textView1"
 	    android:scrollbars="vertical"
+<<<<<<< HEAD
         android:gravity=""
+=======
+>>>>>>> origin/Yura-Too-Veka-poslednaya
 	    android:text="Описание бургера" />
 
 	<Button
@@ -70,6 +92,7 @@
 	    android:layout_alignParentBottom="true"
 	    android:layout_alignParentRight="true"
 	    android:text="В главное меню" />
+<<<<<<< HEAD
 
 	<RatingBar
 	    android:id="@+id/stars"
@@ -80,5 +103,7 @@
 	    android:max="5"
 	    android:numStars="5"
 	    android:stepSize="1" />
+=======
+>>>>>>> origin/Yura-Too-Veka-poslednaya
 
 </RelativeLayout>

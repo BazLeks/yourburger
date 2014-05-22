@@ -24,6 +24,18 @@
 	<string name="questionChoise5_0">Да</string>
 	<string name="questionChoise5_1">Нет</string>
 	
+	<string name="questionName6">добавить сыр</string>
+	<string name="questionChoise6_0">Да</string>
+	<string name="questionChoise6_1">Нет</string>
+	
+	<string name="questionName7">Острый</string>
+	<string name="questionChoise7_0">Да</string>
+	<string name="questionChoise7_1">Нет</string>
+	
+	<string name="questionName8">Соус</string>
+	<string name="questionChoise8_0">Да</string>
+	<string name="questionChoise8_1">Нет</string>	
+	
 	<string name="kfc">KFC</string>
 	
 </resources>
