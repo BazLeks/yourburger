@@ -4,6 +4,8 @@ package ru.brostudios.yourburger.screens;
  * Дата: 17.05.2014
  */
 
+import java.util.Hashtable;
+
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.os.Build;
@@ -17,6 +19,7 @@ import ru.brostudios.framework.Application;
 import ru.brostudios.framework.File;
 import ru.brostudios.framework.interfaces.ScreenInterface;
 import ru.brostudios.yourburger.BurgerActivity.*;
+import ru.brostudios.yourburger.BurgerActivity.RestInfo.BurgerInfo;
 import ru.brostudios.yourburger.BurgerActivity;
 import ru.brostudios.yourburger.R;
 
@@ -36,10 +39,13 @@ public class QuestionsScreen extends ScreenInterface {
 	private String result;	// номер ответа 
 	private int howBurgers;	// сколько бургеров подходит
 	
+	private Hashtable<BurgerInfo, String> compatibles;	// хэш-таблица подходящих бургеров
+	
 // *************************************************************
 	
 	public QuestionsScreen(Application application) {
 		super(application);
+		compatibles = new Hashtable<BurgerInfo, String>();
 		//create();
 	}
 	
@@ -106,8 +112,9 @@ public class QuestionsScreen extends ScreenInterface {
 					Log.d("yourburger", "builder: "+builder+" size: "+builder.length());
 					if(builder!=null && builder.length()!=0) {
 						burgers = builder.substring(0, builder.length()-1);
-					}
-					application.setScreen(new CompBurgers(application, burgers, howBurgers));
+					}	
+					application.setScreen(new CompBurgers(application, compatibles));
+					compatibles.clear();
 					// очищаем переменные результата для нового опроса
 					howBurgers = 0;
 					builder.setLength(0);
@@ -133,7 +140,7 @@ public class QuestionsScreen extends ScreenInterface {
 				choise3.setText(R.string.questionChoise1_3);
 				break;
 		    case 2:
-		    	// СЃРїСЂСЏС‚Р°С‚СЊ 2 СЂР°РґРёРѕР±Р°С‚С‚РѕРЅР°
+		    	// спрятать 2 радиобаттона
 				choise2.setVisibility(android.view.View.INVISIBLE);
 				choise3.setVisibility(android.view.View.INVISIBLE);
 				
@@ -241,7 +248,7 @@ public class QuestionsScreen extends ScreenInterface {
 			String[] opros = new String[countQuestions];
 			
 			opros=result.split("!"); //парсинг строки ответов (то что наотвечали)
-			bur=burgers.split("]"); // РїР°СЂСЃРёРЅРі РІСЃРµС… Р±СѓСЂРіРµСЂРѕРІ (РІ bur Р±СѓРґСѓС‚ РІСЃРµ Р±СѓСЂРіРµСЂС‹ РІРёРґР°: Р…РёРі РјР°Рі!0!1!0!1!1!)
+			bur=burgers.split("]"); // парсинг всех бургеров (в bur будут все бургеры вида: Ѕиг маг!0!1!0!1!1!)
 			
 			tvInfo.setText(""); // ПОТОМ УБРАТЬ!!!
 			for (int i=0;i<countBurger; i++, numberOfMatches = 0) {
@@ -250,14 +257,14 @@ public class QuestionsScreen extends ScreenInterface {
 
 				for (int j=0;j<countQuestions;j++){
 					if (ingr[j+1].equals(opros[j])){
-						numberOfMatches++; // СЃС‡РµС‚С‡РёРє СЃРѕРІРїР°РґРµРЅРёР№ РѕС‚РІРµС‚РѕРІ Рё РёСЃС…РѕРґРЅРѕРіРѕ Р±СѓСЂРіРµСЂР°
+						numberOfMatches++; // счетчик совпадений ответов и исходного бургера
 					}
 				}
 		
 				float sovpadenie =  ((float)numberOfMatches/(float)countQuestions)*100f;
 				int sovp = (int) sovpadenie;
 				if (sovpadenie >= 50){
-					// РўРЈРў РќРђР”Рћ Р‘РЈР”Р•Рў РЎРћРҐР РђРќР�РўР¬ РќРђР—Р’РђРќР�Р• Р‘РЈР Р“Р•Р Рђ Р§РўРћР‘Р« РџРћРўРћРњ РџР•Р Р•Р”РђРўР¬ Р’ Р”Р РЈР“РЈР® Р¤РћР РњРЈ Р� Р’Р«Р’Р•РЎРўР� РЎРџР�РЎРћРљВ РџРћР”РҐРћР”РЇР©Р�РҐ Р‘РЈР Р“Р•Р РћР’!!!
+					// ТУТ НАДО БУДЕТ СОХРАНИТЬ НАЗВАНИЕ БУРГЕРА ЧТОБЫ ПОТОМ ПЕРЕДАТЬ В ДРУГУЮ ФОРМУ И ВЫВЕСТИ СПИСОК ПОДХОДЯЩИХ БУРГЕРОВ!!!
 					String str = String.valueOf(sovp);
 
 					//tvInfo.setText(tvInfo.getText() + "Вам подходит: "+ingr[0]+". Процент совпадений: " + str +"%.");

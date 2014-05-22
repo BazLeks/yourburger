@@ -1,5 +1,8 @@
 package ru.brostudios.yourburger.screens;
 
+import java.util.Hashtable;
+import java.util.List;
+
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +13,7 @@ import android.widget.TextView;
 import ru.brostudios.framework.Application;
 import ru.brostudios.framework.interfaces.ScreenInterface;
 import ru.brostudios.yourburger.BurgerActivity;
+import ru.brostudios.yourburger.BurgerActivity.RestInfo.BurgerInfo;
 import ru.brostudios.yourburger.R;
 
 public class CompBurgers extends ScreenInterface {
@@ -26,7 +30,8 @@ public class CompBurgers extends ScreenInterface {
 		
 	// ************************************************************************
 		
-		public BurgerItem(final Application application, String name, String compatible) {
+		public BurgerItem(final Application application, final BurgerInfo burger, String compatible) {
+			
 			super(application);	
 			
 			// параметры всего слоя
@@ -48,7 +53,7 @@ public class CompBurgers extends ScreenInterface {
 			// поле названия бургера
 			tView1 = new TextView(application);
 			tView1.setTextSize(24);
-			tView1.setText(name);
+			tView1.setText(burger.name);
 			
 			// поле - насколько подходит данный бургер
 			tView2 = new TextView(application); 
@@ -75,7 +80,7 @@ public class CompBurgers extends ScreenInterface {
 			// обработчик вызывает окно и передаёт ему название бургера
 			button.setOnClickListener(new OnClickListener() {
 				@Override
-				public void onClick(View v) { application.setScreen(new InfoBurger(application, ((BurgerActivity)application).restaurants[0].burgersInfo.get(0))); }
+				public void onClick(View v) { application.setScreen(new InfoBurger(application, burger)); }
 			});
 			
 			
@@ -89,11 +94,8 @@ public class CompBurgers extends ScreenInterface {
 	
 // ***********************************************************
 	
-	public CompBurgers(Application application, String burgers, int count) {
+	public CompBurgers(Application application, Hashtable<BurgerInfo, String> compatibles) {
 		super(application);
-		if(burgers!=null && burgers.length() != 0 && count != 0) {
-			this.burgers = burgers.split("!", count*2);
-		}
 	}
 
 	@Override
@@ -130,8 +132,8 @@ public class CompBurgers extends ScreenInterface {
 		}
 		else {
 			for(int i=0;i<burgers.length;i+=2) {
-				BurgerItem item = new BurgerItem(application, burgers[i], burgers[i+1]);
-				layout.addView(item);
+//				BurgerItem item = new BurgerItem(application);
+//				layout.addView(item);
 			}
 		}
 		application.setContentView(layout);
