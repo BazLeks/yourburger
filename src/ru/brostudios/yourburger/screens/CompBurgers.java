@@ -2,7 +2,6 @@ package ru.brostudios.yourburger.screens;
 
 import ru.brostudios.yourburger.BurgerActivity.RestInfo.BurgerInfo;
 import ru.brostudios.framework.interfaces.ScreenInterface;
-import ru.brostudios.yourburger.BurgerActivity;
 import ru.brostudios.framework.Application;
 import android.widget.LinearLayout;
 import ru.brostudios.yourburger.R;
@@ -95,8 +94,7 @@ public class CompBurgers extends ScreenInterface {
 	
 	public CompBurgers(Application application, Hashtable<BurgerInfo, String> compatibles) {
 		super(application);
-		this.compatibles = new Hashtable<BurgerInfo, String>();
-		this.compatibles.put(BurgerActivity.restaurants[0].burgersInfo.get(0), "80");
+		this.compatibles = compatibles;
 	}
 
 	@Override

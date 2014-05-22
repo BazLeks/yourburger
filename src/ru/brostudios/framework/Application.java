@@ -29,10 +29,12 @@ public abstract class Application extends Activity implements FrameworkInterface
 	public void onBackPressed() {
 		Log.d("yourburger", "Нажата кнопка назад");
 		try {
-			if(currentScreen==null) super.onBackPressed();
-			currentScreen.pause();
-			currentScreen = screens.pop();
-			currentScreen.resume();
+			if(screens.isEmpty()) super.onBackPressed();
+			else {
+				currentScreen.pause();
+				currentScreen = screens.pop();
+				currentScreen.resume();
+			}
 		} catch(Exception e) {
 			Toast toast = Toast.makeText(this, e.getMessage()+": "+e.getCause(), Toast.LENGTH_SHORT);
 			toast.show();
@@ -41,7 +43,7 @@ public abstract class Application extends Activity implements FrameworkInterface
 	
 	public final MapView getMapView() { return mapView; }
 	
-	public void GoToMainMenu() {
+	public void goToMainMenu() {
 		screens = new Stack<ScreenInterface>();
 		currentScreen = getStartScreen();
 		currentScreen.create();
@@ -64,8 +66,8 @@ public abstract class Application extends Activity implements FrameworkInterface
 		//getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLcurrentScreen, WindowManager.LayoutParams.FLAG_FULLcurrentScreen);
 		//getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
 		
-	//	mapView = new MapView(this);
-	//	mapView.onCreate(savedInstanceState);
+		mapView = new MapView(this);
+		mapView.onCreate(savedInstanceState);
 		glView = new GLSurfaceView(this);
 		glView.setRenderer(this);
 		glView.setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);

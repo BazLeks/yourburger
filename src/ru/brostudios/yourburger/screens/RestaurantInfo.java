@@ -23,37 +23,7 @@ public class RestaurantInfo extends ScreenInterface {
 	}
 
 	@Override
-	public void create() {
-		application.setContentView(R.layout.restaurant_info);
-		
-		ImageView imageView = (ImageView) application.findViewById(R.id.restaurant_icon);
-		Bitmap bitmap = BitmapFactory.decodeStream(File.LoadFileFromAsset(application.getAssets(), info.picturePath));
-		imageView.setImageBitmap(bitmap);
-		
-		TextView textView = (TextView) application.findViewById(R.id.restaurant_name);
-		textView.setText(info.name);
-		
-		textView = (TextView) application.findViewById(R.id.restaurant_description);
-		textView.setText(info.description);
-		
-		OnClickListener listenerShowOnMap = new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				//application.setScreen(new RestMap(application));
-			}
-		};
-		Button button = (Button)application.findViewById(R.id.restaurant_showinmap);
-		button.setOnClickListener(listenerShowOnMap);
-		
-		OnClickListener listenerGoToMainMenu = new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				application.GoToMainMenu();
-			}
-		};
-		button = (Button)application.findViewById(R.id.restaurant_mainmenu);
-		button.setOnClickListener(listenerGoToMainMenu);
-	}
+	public void create() {}
 
 	@Override
 	public void present() {}
@@ -62,7 +32,37 @@ public class RestaurantInfo extends ScreenInterface {
 	public void update() {}
 
 	@Override
-	public void resume() {}
+	public void resume() {
+		application.setContentView(R.layout.restaurant_info);
+		
+		ImageView imageView = (ImageView) application.findViewById(R.id.restaurant_icon);
+		Bitmap bitmap = BitmapFactory.decodeStream(File.LoadFileFromAsset(application.getAssets(), info.picturePath));
+		imageView.setImageBitmap(bitmap);
+		
+		TextView textView = (TextView) application.findViewById(R.id.question);
+		textView.setText(info.name);
+		
+		textView = (TextView) application.findViewById(R.id.restaurant_description);
+		textView.setText(info.description);
+		
+		OnClickListener listenerShowOnMap = new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				application.setScreen(new RestMap(application));
+			}
+		};
+		Button button = (Button)application.findViewById(R.id.restaurant_showinmap);
+		button.setOnClickListener(listenerShowOnMap);
+		
+		OnClickListener listenerGoToMainMenu = new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				application.goToMainMenu();
+			}
+		};
+		button = (Button)application.findViewById(R.id.restaurant_mainmenu);
+		button.setOnClickListener(listenerGoToMainMenu);
+	}
 
 	@Override
 	public void pause() {}

@@ -4,7 +4,6 @@ package ru.brostudios.yourburger.screens;
  * Дата: 17.05.2014
  */
 
-import android.app.backup.RestoreObserver;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.View;
@@ -70,7 +69,7 @@ public class InfoBurger extends ScreenInterface {
 			
 			@Override
 			public void onClick(View v) {
-				application.GoToMainMenu();
+				application.goToMainMenu();
 				
 			}
 		});
