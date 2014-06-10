@@ -2,6 +2,7 @@ package ru.brostudios.framework.gui;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import ru.brostudios.framework.Application;
 import ru.brostudios.framework.game.Texture;
 import ru.brostudios.framework.interfaces.InputInterface.TouchEvent;
@@ -54,16 +55,16 @@ public class ButtonBoss extends Button implements Runnable {
 	
 	public void updateButtons(float rad) {
 		float fi = (max-min);
-		if(list.size()>2) fi /= list.size();
+		if(list.size()>2) fi /= (list.size()-1);
 		float angle = min;
 		for(int i=0;i<list.size();i++) {
-			list.get(i).MoveInScreenCoords(x+rad*Math.cos(angle*Math.PI/180f), y+rad*Math.sin(angle*Math.PI/180f));
+			list.get(i).MoveInScreenCoords((float)(x+rad*Math.cos(angle*Math.PI/180f)), (float)(y+rad*Math.sin(angle*Math.PI/180f)));
 			angle+=fi;
 		}
 	}
 	
 	@Override
-	public void MoveInScreenCoords(double x, double y) {
+	public void MoveInScreenCoords(float x, float y) {
 		super.MoveInScreenCoords(x, y);
 		for(int i=0;i<list.size();i++) {
 			updateButtons(irad);

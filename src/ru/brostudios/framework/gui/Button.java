@@ -72,7 +72,7 @@ public class Button extends UserInterface {
 		
 	}
 	
-	public void MoveInScreenCoords(double x, double y) {
+	public void MoveInScreenCoords(float x, float y) {
 		this.x = x;
 		this.y = y;
 	}
@@ -81,8 +81,8 @@ public class Button extends UserInterface {
 		// x=[-1, 1], y=[-1, 1]
 		int screenW = application.getGraphics().getWidth();
 		int screenH = application.getGraphics().getHeight();
-		this.x = x*(screenW/2-sprite.getFrameWidth()*scale/2);
-		this.y = y*(screenH/2-sprite.getFrameHeight()*scale/2);
+		this.x = (float)(x*(screenW/2-sprite.getFrameWidth()*scale/2));
+		this.y = (float)(y*(screenH/2-sprite.getFrameHeight()*scale/2));
 	}
 	
 	public void setScale(float scale) { this.scale = scale; }

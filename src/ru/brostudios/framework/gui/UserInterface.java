@@ -9,7 +9,7 @@ public abstract class UserInterface {
 	
 	protected Application application;
 	protected boolean active;
-	protected double x, y;	// float теряет точность
+	protected float x, y;	// float теряет точность
 	
 	public UserInterface(Application app) {
 		this.application = app;
